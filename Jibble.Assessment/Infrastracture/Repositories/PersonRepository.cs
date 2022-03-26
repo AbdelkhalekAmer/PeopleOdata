@@ -13,13 +13,15 @@ public class PersonRepository : IPersonRepository
 
     public void CreatePerson(Person person)
     {
-        _container.AddToPeople(new Trippin.Person
+        Trippin.Person oDataPerson = new()
         {
             UserName = person.UserName,
             FirstName = person.FirstName ?? "N/A",
             Gender = (Trippin.PersonGender)(person.Gender ?? Gender.Unknown),
             FavoriteFeature = (Trippin.Feature)(person.FavoriteFeature ?? Feature.Feature1)
-        });
+        };
+
+        _container.AddToPeople(oDataPerson);
 
         _container.SaveChanges();
     }
