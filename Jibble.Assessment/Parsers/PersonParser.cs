@@ -6,7 +6,10 @@ namespace Jibble.Assessment.Parsers;
 
 internal static class PersonParser
 {
-    public static string ParseUsername(string username) => username.Trim('\'').Trim('\"');
+    public static string ParseUsername(string username) =>
+        username?.Trim('\'').Trim('\"') ?? throw new ArgumentException($"nameof(username) is required.", nameof(username));
+
+    public static string? ParseFirstName(string? firstName) => firstName?.Trim('\'').Trim('\"');
 
     public static Gender? ParseGender(string? gender)
     {

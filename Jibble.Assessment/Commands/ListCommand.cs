@@ -36,11 +36,13 @@ internal class ListCommand : Command
 
     public void GetPeople(string? firstName, string? gender, string? favFeature)
     {
+        string? parsedFirstName = PersonParser.ParseFirstName(firstName);
+
         Gender? parsedGender = PersonParser.ParseGender(gender);
 
         Feature? parsedFeature = PersonParser.ParseFeature(favFeature);
 
-        IEnumerable<Person> people = _personRepository.GetPeople(firstName, parsedGender, parsedFeature);
+        IEnumerable<Person> people = _personRepository.GetPeople(parsedFirstName, parsedGender, parsedFeature);
 
         JsonSerializerOptions options = new() { WriteIndented = true };
 

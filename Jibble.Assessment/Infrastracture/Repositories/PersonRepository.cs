@@ -13,7 +13,15 @@ public class PersonRepository : IPersonRepository
 
     public void CreatePerson(Person person)
     {
-        throw new NotImplementedException();
+        _container.AddToPeople(new Trippin.Person
+        {
+            UserName = person.UserName,
+            FirstName = person.FirstName ?? "N/A",
+            Gender = (Trippin.PersonGender)(person.Gender ?? Gender.Unknown),
+            FavoriteFeature = (Trippin.Feature)(person.FavoriteFeature ?? Feature.Feature1)
+        });
+
+        _container.SaveChanges();
     }
 
     public IEnumerable<Person> GetPeople(string? firstName, Gender? gender, Feature? favFeature)
@@ -21,11 +29,8 @@ public class PersonRepository : IPersonRepository
         DataServiceQuery<Trippin.Person> query = _container.People;
 
         if (!string.IsNullOrWhiteSpace(firstName))
-        {
-            if (!firstName.StartsWith('\'') && !firstName.EndsWith('\'')) firstName = $"'{firstName}'";
-
-            query = query.AddQueryOption("$filter", $"contains({nameof(Trippin.Person.FirstName)}, {firstName})");
-        }
+            query = query.AddQueryOption("$filter",
+                $"contains({nameof(Trippin.Person.FirstName)}, '{firstName}')");
 
         if (gender is not null)
             query = query.AddQueryOption("$filter",
@@ -63,6 +68,22 @@ public class PersonRepository : IPersonRepository
 
     public void UpdatePerson(Person person)
     {
-        throw new NotImplementedException();
+        Trippin.Person? oDataPerson = _container.People.AddQueryOption("$filter", $"{nameof(Trippin.Person.UserName)} eq '{person.UserName}'").First();
+
+        if (oDataPerson is null)
+            throw new InvalidOperationException($"Unable to find a person with {nameof(Trippin.Person.UserName)} '{person.UserName}'");
+
+        if (!string.IsNullOrWhiteSpace(person.FirstName) && oDataPerson.FirstName != person.FirstName)
+            oDataPerson.FirstName = person.FirstName;
+
+        if (person.Gender is not null && oDataPerson.Gender != (Trippin.PersonGender)person.Gender)
+            oDataPerson.Gender = (Trippin.PersonGender)person.Gender;
+
+        if (person.FavoriteFeature is not null && oDataPerson.FavoriteFeature != (Trippin.Feature)person.FavoriteFeature)
+            oDataPerson.FavoriteFeature = (Trippin.Feature)person.FavoriteFeature;
+
+        _container.UpdateObject(oDataPerson);
+
+        _container.SaveChanges();
     }
 }

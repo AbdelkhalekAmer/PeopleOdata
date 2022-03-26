@@ -31,14 +31,18 @@ internal class CreatePersonCommand : Command
 
     public void CreatePerson(string username, string firstName, string gender, string favFeature)
     {
-        Gender parsedGender = PersonParser.ParseGender(gender) ?? Gender.Unknown;
+        string parsedUsername = PersonParser.ParseUsername(username);
 
-        Feature parsedFeature = PersonParser.ParseFeature(favFeature) ?? Feature.None;
+        string? parsedFirstName = PersonParser.ParseFirstName(firstName);
+
+        Gender? parsedGender = PersonParser.ParseGender(gender);
+
+        Feature? parsedFeature = PersonParser.ParseFeature(favFeature);
 
         _personRepository.CreatePerson(new Person()
         {
-            UserName = username,
-            FirstName = firstName,
+            UserName = parsedUsername,
+            FirstName = parsedFirstName,
             Gender = parsedGender,
             FavoriteFeature = parsedFeature
         });

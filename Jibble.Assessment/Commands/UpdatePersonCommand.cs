@@ -34,14 +34,18 @@ internal class UpdatePersonCommand : Command
 
     public void UpdatePerson(string username, string firstName, string gender, string favFeature)
     {
+        string parsedUsername = PersonParser.ParseUsername(username);
+
+        string? parsedFirstName = PersonParser.ParseFirstName(firstName);
+
         Gender? parsedGender = PersonParser.ParseGender(gender);
 
         Feature? parsedFeature = PersonParser.ParseFeature(favFeature);
 
         _personRepository.UpdatePerson(new Person()
         {
-            UserName = username,
-            FirstName = firstName,
+            UserName = parsedUsername,
+            FirstName = parsedFirstName,
             Gender = parsedGender,
             FavoriteFeature = parsedFeature
         });
