@@ -11,12 +11,12 @@ public class PersonRepository : IPersonRepository
     private static Uri _rootUri = new("https://services.odata.org/TripPinRESTierService");
     private static Trippin.Container _container = new(_rootUri);
 
-    public Task CreatePersonAsync(Person person)
+    public void CreatePerson(Person person)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<Person>> GetPeopleAsync(string? firstName, Gender? gender, Feature? favFeature)
+    public IEnumerable<Person> GetPeople(string? firstName, Gender? gender, Feature? favFeature)
     {
         DataServiceQuery<Trippin.Person> query = _container.People;
 
@@ -44,7 +44,7 @@ public class PersonRepository : IPersonRepository
         return people;
     }
 
-    public Person GetPersonAsync(string username)
+    public Person GetPerson(string username)
     {
         Trippin.Person? person = _container.People.AddQueryOption("$filter", $"{nameof(Trippin.Person.UserName)} eq {username}").First();
 
@@ -57,7 +57,7 @@ public class PersonRepository : IPersonRepository
         };
     }
 
-    public Task UpdatePersonAsync(Person person)
+    public void UpdatePerson(Person person)
     {
         throw new NotImplementedException();
     }

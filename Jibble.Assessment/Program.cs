@@ -7,7 +7,7 @@ namespace Jibble.Assessment.ConsoleApp;
 
 internal class Program
 {
-    private static Task Main(string[] args)
+    private static void Main(string[] args)
     {
         //args = "get 'russellwhyte'".Split(' ');
 
@@ -20,6 +20,6 @@ internal class Program
         application.AddCommand(new CreatePersonCommand(repository));
         application.AddCommand(new UpdatePersonCommand(repository));
 
-        return application.InvokeAsync(args);
+        application.Invoke(args);
     }
 }

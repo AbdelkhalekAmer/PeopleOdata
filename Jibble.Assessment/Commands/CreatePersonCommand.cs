@@ -33,7 +33,7 @@ internal class CreatePersonCommand : Command
                 if (!string.IsNullOrWhiteSpace(favFeature) && !Enum.TryParse(favFeature, true, out parsedFavFeature))
                     throw new ArgumentException($"Invalid favourite feature value, please use one of the following, {Feature.Feature1}, {Feature.Feature2}, {Feature.Feature3}, {Feature.Feature4} or leave it empty.", nameof(favFeature));
 
-                return personRepository.CreatePersonAsync(new Person()
+                personRepository.CreatePerson(new Person()
                 {
                     UserName = username,
                     FirstName = firstName,

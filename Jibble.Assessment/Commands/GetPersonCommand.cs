@@ -16,7 +16,7 @@ internal class GetPersonCommand : Command
 
         System.CommandLine.Handler.SetHandler(this, (string username) =>
         {
-            Person person = personRepository.GetPersonAsync(username);
+            Person person = personRepository.GetPerson(username);
 
             Console.WriteLine(JsonSerializer.Serialize(person));
         }, usernameArgument);
