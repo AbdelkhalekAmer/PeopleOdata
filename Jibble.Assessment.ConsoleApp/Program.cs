@@ -1,17 +1,25 @@
 ﻿using System.CommandLine;
 
+using Jibble.Assessment.ConsoleApp.Commands;
+using Jibble.Assessment.Infrastracture.Repositories;
+
 namespace Jibble.Assessment.ConsoleApp;
 
 internal class Program
 {
-    private static void Main(string[] args)
+    private static Task Main(string[] args)
     {
-        //args = "list --username 'test'".Split(' ');
+        //args = "get 'russellwhyte'".Split(' ');
 
         RootCommand application = new("People OData Service");
 
-        foreach (Command command in Commands.Load()) application.Add(command);
+        PersonRepository repository = new();
 
-        application.Invoke(args);
+        application.AddCommand(new ListCommand(repository));
+        application.AddCommand(new GetPersonCommand(repository));
+        application.AddCommand(new CreatePersonCommand(repository));
+        application.AddCommand(new UpdatePersonCommand(repository));
+
+        return application.InvokeAsync(args);
     }
 }

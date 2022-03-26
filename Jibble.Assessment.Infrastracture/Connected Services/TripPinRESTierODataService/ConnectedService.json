@@ -5,7 +5,7 @@
     "Uri": "http://odata.github.io/odata.net/"
   },
   "ExtendedData": {
-    "EnableNamingAlias": false,
+    "EnableNamingAlias": true,
     "IgnoreUnexpectedElementsAndAttributes": false,
     "GenerateDynamicPropertiesCollection": true,
     "DynamicPropertiesCollectionName": "DynamicProperties",
@@ -28,8 +28,8 @@
     "GeneratedFileNamePrefix": "Reference",
     "UseNameSpacePrefix": false,
     "NamespacePrefix": null,
-    "UseDataServiceCollection": false,
-    "UseAsyncDataServiceCollection": false,
+    "UseDataServiceCollection": true,
+    "UseAsyncDataServiceCollection": true,
     "OpenGeneratedFilesOnComplete": false,
     "LanguageOption": 0,
     "FunctionImports": null,

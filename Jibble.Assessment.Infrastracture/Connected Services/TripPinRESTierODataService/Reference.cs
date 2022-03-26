@@ -8,12 +8,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generation date: 3/25/2022 5:16:49 PM
+// Generation date: 3/26/2022 3:50:11 AM
+using System.Linq;
 namespace Trippin
 {
     /// <summary>
     /// There are no comments for Container in the schema.
     /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("Container")]
     public partial class Container : global::Microsoft.OData.Client.DataServiceContext
     {
         /// <summary>
@@ -24,6 +26,7 @@ namespace Trippin
                 base(serviceRoot, global::Microsoft.OData.Client.ODataProtocolVersion.V4)
         {
             this.ResolveName = new global::System.Func<global::System.Type, string>(this.ResolveNameFromType);
+            this.ResolveType = new global::System.Func<string, global::System.Type>(this.ResolveTypeFromName);
             this.OnContextCreated();
             this.Format.LoadServiceModel = GeneratedEdmModel.GetInstance;
             this.Format.UseJson();
@@ -35,14 +38,43 @@ namespace Trippin
         /// server schema, use type-mappers to map between the two.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        protected global::System.Type ResolveTypeFromName(string typeName)
+        {
+            global::System.Type resolvedType = this.DefaultResolveType(typeName, "Trippin", "Trippin");
+            if ((resolvedType != null))
+            {
+                return resolvedType;
+            }
+            return null;
+        }
+        /// <summary>
+        /// Since the namespace configured for this service reference
+        /// in Visual Studio is different from the one indicated in the
+        /// server schema, use type-mappers to map between the two.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
         protected string ResolveNameFromType(global::System.Type clientType)
         {
+            global::Microsoft.OData.Client.OriginalNameAttribute originalNameAttribute = (global::Microsoft.OData.Client.OriginalNameAttribute)global::System.Linq.Enumerable.SingleOrDefault(global::Microsoft.OData.Client.Utility.GetCustomAttributes(clientType, typeof(global::Microsoft.OData.Client.OriginalNameAttribute), true));
+            if (clientType.Namespace.Equals("Trippin", global::System.StringComparison.Ordinal))
+            {
+                if (originalNameAttribute != null)
+                {
+                    return string.Concat("Trippin.", originalNameAttribute.OriginalName);
+                }
+                return string.Concat("Trippin.", clientType.Name);
+            }
+            if (originalNameAttribute != null)
+            {
+                return clientType.Namespace + "." + originalNameAttribute.OriginalName;
+            }
             return clientType.FullName;
         }
         /// <summary>
         /// There are no comments for People in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("People")]
         public global::Microsoft.OData.Client.DataServiceQuery<Person> People
         {
             get
@@ -60,6 +92,7 @@ namespace Trippin
         /// There are no comments for Airlines in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Airlines")]
         public global::Microsoft.OData.Client.DataServiceQuery<Airline> Airlines
         {
             get
@@ -77,6 +110,7 @@ namespace Trippin
         /// There are no comments for Airports in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Airports")]
         public global::Microsoft.OData.Client.DataServiceQuery<Airport> Airports
         {
             get
@@ -118,6 +152,7 @@ namespace Trippin
         /// There are no comments for Me in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Me")]
         public PersonSingle Me
         {
             get
@@ -348,6 +383,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for GetPersonWithMostFriends in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("GetPersonWithMostFriends")]
         public global::Trippin.PersonSingle GetPersonWithMostFriends()
         {
             return new global::Trippin.PersonSingle(this.CreateFunctionQuerySingle<global::Trippin.Person>("", "GetPersonWithMostFriends", false));
@@ -355,6 +391,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for GetNearestAirport in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("GetNearestAirport")]
         public global::Trippin.AirportSingle GetNearestAirport(double lat, double lon)
         {
             return new global::Trippin.AirportSingle(this.CreateFunctionQuerySingle<global::Trippin.Airport>("", "GetNearestAirport", false, new global::Microsoft.OData.Client.UriOperationParameter("lat", lat),
@@ -363,6 +400,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for ResetDataSource in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("ResetDataSource")]
         public global::Microsoft.OData.Client.DataServiceActionQuery ResetDataSource()
         {
             return new global::Microsoft.OData.Client.DataServiceActionQuery(this, this.BaseUri.OriginalString.Trim('/') + "/ResetDataSource");
@@ -371,6 +409,7 @@ namespace Trippin
     /// <summary>
     /// There are no comments for PersonSingle in the schema.
     /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("PersonSingle")]
     public partial class PersonSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<Person>
     {
         /// <summary>
@@ -395,6 +434,7 @@ namespace Trippin
         /// There are no comments for Friends in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Friends")]
         public global::Microsoft.OData.Client.DataServiceQuery<global::Trippin.Person> Friends
         {
             get
@@ -416,6 +456,7 @@ namespace Trippin
         /// There are no comments for BestFriend in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("BestFriend")]
         public global::Trippin.PersonSingle BestFriend
         {
             get
@@ -437,6 +478,7 @@ namespace Trippin
         /// There are no comments for Trips in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Trips")]
         public global::Microsoft.OData.Client.DataServiceQuery<global::Trippin.Trip> Trips
         {
             get
@@ -462,7 +504,8 @@ namespace Trippin
     /// UserName
     /// </KeyProperties>
     [global::Microsoft.OData.Client.Key("UserName")]
-    public partial class Person : global::Microsoft.OData.Client.BaseEntityType
+    [global::Microsoft.OData.Client.OriginalNameAttribute("Person")]
+    public partial class Person : global::Microsoft.OData.Client.BaseEntityType, global::System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
         /// Create a new Person object.
@@ -485,6 +528,7 @@ namespace Trippin
         /// There are no comments for Property UserName in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("UserName")]
         public string UserName
         {
             get
@@ -496,6 +540,7 @@ namespace Trippin
                 this.OnUserNameChanging(value);
                 this._UserName = value;
                 this.OnUserNameChanged();
+                this.OnPropertyChanged("UserName");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -506,6 +551,7 @@ namespace Trippin
         /// There are no comments for Property FirstName in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("FirstName")]
         public string FirstName
         {
             get
@@ -517,6 +563,7 @@ namespace Trippin
                 this.OnFirstNameChanging(value);
                 this._FirstName = value;
                 this.OnFirstNameChanged();
+                this.OnPropertyChanged("FirstName");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -527,6 +574,7 @@ namespace Trippin
         /// There are no comments for Property LastName in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("LastName")]
         public string LastName
         {
             get
@@ -538,6 +586,7 @@ namespace Trippin
                 this.OnLastNameChanging(value);
                 this._LastName = value;
                 this.OnLastNameChanged();
+                this.OnPropertyChanged("LastName");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -548,6 +597,7 @@ namespace Trippin
         /// There are no comments for Property MiddleName in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("MiddleName")]
         public string MiddleName
         {
             get
@@ -559,6 +609,7 @@ namespace Trippin
                 this.OnMiddleNameChanging(value);
                 this._MiddleName = value;
                 this.OnMiddleNameChanged();
+                this.OnPropertyChanged("MiddleName");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -569,6 +620,7 @@ namespace Trippin
         /// There are no comments for Property Gender in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Gender")]
         public global::Trippin.PersonGender Gender
         {
             get
@@ -580,6 +632,7 @@ namespace Trippin
                 this.OnGenderChanging(value);
                 this._Gender = value;
                 this.OnGenderChanged();
+                this.OnPropertyChanged("Gender");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -590,6 +643,7 @@ namespace Trippin
         /// There are no comments for Property Age in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Age")]
         public global::System.Nullable<long> Age
         {
             get
@@ -601,6 +655,7 @@ namespace Trippin
                 this.OnAgeChanging(value);
                 this._Age = value;
                 this.OnAgeChanged();
+                this.OnPropertyChanged("Age");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -611,7 +666,8 @@ namespace Trippin
         /// There are no comments for Property Emails in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        public global::System.Collections.ObjectModel.Collection<string> Emails
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Emails")]
+        public global::System.Collections.ObjectModel.ObservableCollection<string> Emails
         {
             get
             {
@@ -622,17 +678,19 @@ namespace Trippin
                 this.OnEmailsChanging(value);
                 this._Emails = value;
                 this.OnEmailsChanged();
+                this.OnPropertyChanged("Emails");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        private global::System.Collections.ObjectModel.Collection<string> _Emails = new global::System.Collections.ObjectModel.Collection<string>();
-        partial void OnEmailsChanging(global::System.Collections.ObjectModel.Collection<string> value);
+        private global::System.Collections.ObjectModel.ObservableCollection<string> _Emails = new global::System.Collections.ObjectModel.ObservableCollection<string>();
+        partial void OnEmailsChanging(global::System.Collections.ObjectModel.ObservableCollection<string> value);
         partial void OnEmailsChanged();
         /// <summary>
         /// There are no comments for Property AddressInfo in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        public global::System.Collections.ObjectModel.Collection<global::Trippin.Location> AddressInfo
+        [global::Microsoft.OData.Client.OriginalNameAttribute("AddressInfo")]
+        public global::System.Collections.ObjectModel.ObservableCollection<global::Trippin.Location> AddressInfo
         {
             get
             {
@@ -643,16 +701,18 @@ namespace Trippin
                 this.OnAddressInfoChanging(value);
                 this._AddressInfo = value;
                 this.OnAddressInfoChanged();
+                this.OnPropertyChanged("AddressInfo");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        private global::System.Collections.ObjectModel.Collection<global::Trippin.Location> _AddressInfo = new global::System.Collections.ObjectModel.Collection<global::Trippin.Location>();
-        partial void OnAddressInfoChanging(global::System.Collections.ObjectModel.Collection<global::Trippin.Location> value);
+        private global::System.Collections.ObjectModel.ObservableCollection<global::Trippin.Location> _AddressInfo = new global::System.Collections.ObjectModel.ObservableCollection<global::Trippin.Location>();
+        partial void OnAddressInfoChanging(global::System.Collections.ObjectModel.ObservableCollection<global::Trippin.Location> value);
         partial void OnAddressInfoChanged();
         /// <summary>
         /// There are no comments for Property HomeAddress in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("HomeAddress")]
         public global::Trippin.Location HomeAddress
         {
             get
@@ -664,6 +724,7 @@ namespace Trippin
                 this.OnHomeAddressChanging(value);
                 this._HomeAddress = value;
                 this.OnHomeAddressChanged();
+                this.OnPropertyChanged("HomeAddress");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -674,6 +735,7 @@ namespace Trippin
         /// There are no comments for Property FavoriteFeature in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("FavoriteFeature")]
         public global::Trippin.Feature FavoriteFeature
         {
             get
@@ -685,6 +747,7 @@ namespace Trippin
                 this.OnFavoriteFeatureChanging(value);
                 this._FavoriteFeature = value;
                 this.OnFavoriteFeatureChanged();
+                this.OnPropertyChanged("FavoriteFeature");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -695,7 +758,8 @@ namespace Trippin
         /// There are no comments for Property Features in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        public global::System.Collections.ObjectModel.Collection<global::Trippin.Feature> Features
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Features")]
+        public global::System.Collections.ObjectModel.ObservableCollection<global::Trippin.Feature> Features
         {
             get
             {
@@ -706,17 +770,19 @@ namespace Trippin
                 this.OnFeaturesChanging(value);
                 this._Features = value;
                 this.OnFeaturesChanged();
+                this.OnPropertyChanged("Features");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        private global::System.Collections.ObjectModel.Collection<global::Trippin.Feature> _Features = new global::System.Collections.ObjectModel.Collection<global::Trippin.Feature>();
-        partial void OnFeaturesChanging(global::System.Collections.ObjectModel.Collection<global::Trippin.Feature> value);
+        private global::System.Collections.ObjectModel.ObservableCollection<global::Trippin.Feature> _Features = new global::System.Collections.ObjectModel.ObservableCollection<global::Trippin.Feature>();
+        partial void OnFeaturesChanging(global::System.Collections.ObjectModel.ObservableCollection<global::Trippin.Feature> value);
         partial void OnFeaturesChanged();
         /// <summary>
         /// There are no comments for Property Friends in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        public global::System.Collections.ObjectModel.Collection<global::Trippin.Person> Friends
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Friends")]
+        public global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.Person> Friends
         {
             get
             {
@@ -727,16 +793,18 @@ namespace Trippin
                 this.OnFriendsChanging(value);
                 this._Friends = value;
                 this.OnFriendsChanged();
+                this.OnPropertyChanged("Friends");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        private global::System.Collections.ObjectModel.Collection<global::Trippin.Person> _Friends = new global::System.Collections.ObjectModel.Collection<global::Trippin.Person>();
-        partial void OnFriendsChanging(global::System.Collections.ObjectModel.Collection<global::Trippin.Person> value);
+        private global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.Person> _Friends = new global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.Person>(null, global::Microsoft.OData.Client.TrackingMode.None);
+        partial void OnFriendsChanging(global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.Person> value);
         partial void OnFriendsChanged();
         /// <summary>
         /// There are no comments for Property BestFriend in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("BestFriend")]
         public global::Trippin.Person BestFriend
         {
             get
@@ -748,6 +816,7 @@ namespace Trippin
                 this.OnBestFriendChanging(value);
                 this._BestFriend = value;
                 this.OnBestFriendChanged();
+                this.OnPropertyChanged("BestFriend");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -758,7 +827,8 @@ namespace Trippin
         /// There are no comments for Property Trips in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        public global::System.Collections.ObjectModel.Collection<global::Trippin.Trip> Trips
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Trips")]
+        public global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.Trip> Trips
         {
             get
             {
@@ -769,15 +839,79 @@ namespace Trippin
                 this.OnTripsChanging(value);
                 this._Trips = value;
                 this.OnTripsChanged();
+                this.OnPropertyChanged("Trips");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        private global::System.Collections.ObjectModel.Collection<global::Trippin.Trip> _Trips = new global::System.Collections.ObjectModel.Collection<global::Trippin.Trip>();
-        partial void OnTripsChanging(global::System.Collections.ObjectModel.Collection<global::Trippin.Trip> value);
+        private global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.Trip> _Trips = new global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.Trip>(null, global::Microsoft.OData.Client.TrackingMode.None);
+        partial void OnTripsChanging(global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.Trip> value);
         partial void OnTripsChanged();
+        /// <summary>
+        /// Keep track of the synchronization context of each event handler that is registered.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        private readonly global::System.Collections.Generic.List<(global::System.Threading.SynchronizationContext context, global::System.ComponentModel.PropertyChangedEventHandler handler)> _handlers = new global::System.Collections.Generic.List<(global::System.Threading.SynchronizationContext context, global::System.ComponentModel.PropertyChangedEventHandler handler)>();
+        /// <summary>
+        /// This event is raised when the value of the property is changed
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged
+        {
+            add => _handlers.Add((global::System.Threading.SynchronizationContext.Current, value));
+            remove
+            {
+                var i = 0;
+                foreach (var item in _handlers)
+                {
+                    if (item.handler.Equals(value))
+                    {
+                        _handlers.RemoveAt(i);
+                        break;
+                    }
+                    i++;
+                }
+            }
+        }
+        /// <summary>
+        /// The value of the property is changed
+        /// </summary>
+        /// <param name="property">property name</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        protected global::System.Threading.Tasks.Task OnPropertyChanged([global::System.Runtime.CompilerServices.CallerMemberName] string property = null)
+        {
+            var args = new global::System.ComponentModel.PropertyChangedEventArgs(property);
+            var tasks = _handlers
+                .GroupBy(x => x.context, x => x.handler)
+                .Select(g => invokeContext(g.Key, g));
+            return global::System.Threading.Tasks.Task.WhenAll(tasks);
+
+            global::System.Threading.Tasks.Task invokeContext(global::System.Threading.SynchronizationContext context, global::System.Collections.Generic.IEnumerable<global::System.ComponentModel.PropertyChangedEventHandler> l)
+            {
+                if (context != null)
+                {
+                    var tcs = new global::System.Threading.Tasks.TaskCompletionSource<bool>();
+                    context.Post(o =>
+                    {
+                        try { invokeHandlers(l); tcs.TrySetResult(true); }
+                        catch (global::System.Exception e) { tcs.TrySetException(e); }
+                    }, null);
+                    return tcs.Task;
+                }
+                else
+                {
+                    return global::System.Threading.Tasks.Task.Run(() => invokeHandlers(l));
+                }
+            }
+            void invokeHandlers(global::System.Collections.Generic.IEnumerable<global::System.ComponentModel.PropertyChangedEventHandler> l)
+            {
+                foreach (var h in l)
+                    h(this, args);
+            }
+        }
         /// <summary>
         /// There are no comments for GetFavoriteAirline in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("GetFavoriteAirline")]
         public global::Trippin.AirlineSingle GetFavoriteAirline()
         {
             global::System.Uri requestUri;
@@ -788,6 +922,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for GetFriendsTrips in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("GetFriendsTrips")]
         public global::Microsoft.OData.Client.DataServiceQuery<global::Trippin.Trip> GetFriendsTrips(string userName)
         {
             global::System.Uri requestUri;
@@ -797,6 +932,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for UpdateLastName in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("UpdateLastName")]
         public global::Microsoft.OData.Client.DataServiceActionQuerySingle<bool> UpdateLastName(string lastName)
         {
             global::Microsoft.OData.Client.EntityDescriptor resource = Context.EntityTracker.TryGetEntityDescriptor(this);
@@ -810,6 +946,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for ShareTrip in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("ShareTrip")]
         public global::Microsoft.OData.Client.DataServiceActionQuery ShareTrip(string userName, int tripId)
         {
             global::Microsoft.OData.Client.EntityDescriptor resource = Context.EntityTracker.TryGetEntityDescriptor(this);
@@ -825,6 +962,7 @@ namespace Trippin
     /// <summary>
     /// There are no comments for AirlineSingle in the schema.
     /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("AirlineSingle")]
     public partial class AirlineSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<Airline>
     {
         /// <summary>
@@ -853,7 +991,9 @@ namespace Trippin
     /// AirlineCode
     /// </KeyProperties>
     [global::Microsoft.OData.Client.Key("AirlineCode")]
-    public partial class Airline : global::Microsoft.OData.Client.BaseEntityType
+    [global::Microsoft.OData.Client.EntitySet("Airlines")]
+    [global::Microsoft.OData.Client.OriginalNameAttribute("Airline")]
+    public partial class Airline : global::Microsoft.OData.Client.BaseEntityType, global::System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
         /// Create a new Airline object.
@@ -870,6 +1010,7 @@ namespace Trippin
         /// There are no comments for Property AirlineCode in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("AirlineCode")]
         public string AirlineCode
         {
             get
@@ -881,6 +1022,7 @@ namespace Trippin
                 this.OnAirlineCodeChanging(value);
                 this._AirlineCode = value;
                 this.OnAirlineCodeChanged();
+                this.OnPropertyChanged("AirlineCode");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -891,6 +1033,7 @@ namespace Trippin
         /// There are no comments for Property Name in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Name")]
         public string Name
         {
             get
@@ -902,16 +1045,80 @@ namespace Trippin
                 this.OnNameChanging(value);
                 this._Name = value;
                 this.OnNameChanged();
+                this.OnPropertyChanged("Name");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
         private string _Name;
         partial void OnNameChanging(string value);
         partial void OnNameChanged();
+        /// <summary>
+        /// Keep track of the synchronization context of each event handler that is registered.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        private readonly global::System.Collections.Generic.List<(global::System.Threading.SynchronizationContext context, global::System.ComponentModel.PropertyChangedEventHandler handler)> _handlers = new global::System.Collections.Generic.List<(global::System.Threading.SynchronizationContext context, global::System.ComponentModel.PropertyChangedEventHandler handler)>();
+        /// <summary>
+        /// This event is raised when the value of the property is changed
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged
+        {
+            add => _handlers.Add((global::System.Threading.SynchronizationContext.Current, value));
+            remove
+            {
+                var i = 0;
+                foreach (var item in _handlers)
+                {
+                    if (item.handler.Equals(value))
+                    {
+                        _handlers.RemoveAt(i);
+                        break;
+                    }
+                    i++;
+                }
+            }
+        }
+        /// <summary>
+        /// The value of the property is changed
+        /// </summary>
+        /// <param name="property">property name</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        protected global::System.Threading.Tasks.Task OnPropertyChanged([global::System.Runtime.CompilerServices.CallerMemberName] string property = null)
+        {
+            var args = new global::System.ComponentModel.PropertyChangedEventArgs(property);
+            var tasks = _handlers
+                .GroupBy(x => x.context, x => x.handler)
+                .Select(g => invokeContext(g.Key, g));
+            return global::System.Threading.Tasks.Task.WhenAll(tasks);
+
+            global::System.Threading.Tasks.Task invokeContext(global::System.Threading.SynchronizationContext context, global::System.Collections.Generic.IEnumerable<global::System.ComponentModel.PropertyChangedEventHandler> l)
+            {
+                if (context != null)
+                {
+                    var tcs = new global::System.Threading.Tasks.TaskCompletionSource<bool>();
+                    context.Post(o =>
+                    {
+                        try { invokeHandlers(l); tcs.TrySetResult(true); }
+                        catch (global::System.Exception e) { tcs.TrySetException(e); }
+                    }, null);
+                    return tcs.Task;
+                }
+                else
+                {
+                    return global::System.Threading.Tasks.Task.Run(() => invokeHandlers(l));
+                }
+            }
+            void invokeHandlers(global::System.Collections.Generic.IEnumerable<global::System.ComponentModel.PropertyChangedEventHandler> l)
+            {
+                foreach (var h in l)
+                    h(this, args);
+            }
+        }
     }
     /// <summary>
     /// There are no comments for AirportSingle in the schema.
     /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("AirportSingle")]
     public partial class AirportSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<Airport>
     {
         /// <summary>
@@ -940,7 +1147,9 @@ namespace Trippin
     /// IcaoCode
     /// </KeyProperties>
     [global::Microsoft.OData.Client.Key("IcaoCode")]
-    public partial class Airport : global::Microsoft.OData.Client.BaseEntityType
+    [global::Microsoft.OData.Client.EntitySet("Airports")]
+    [global::Microsoft.OData.Client.OriginalNameAttribute("Airport")]
+    public partial class Airport : global::Microsoft.OData.Client.BaseEntityType, global::System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
         /// Create a new Airport object.
@@ -957,6 +1166,7 @@ namespace Trippin
         /// There are no comments for Property Name in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Name")]
         public string Name
         {
             get
@@ -968,6 +1178,7 @@ namespace Trippin
                 this.OnNameChanging(value);
                 this._Name = value;
                 this.OnNameChanged();
+                this.OnPropertyChanged("Name");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -978,6 +1189,7 @@ namespace Trippin
         /// There are no comments for Property IcaoCode in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("IcaoCode")]
         public string IcaoCode
         {
             get
@@ -989,6 +1201,7 @@ namespace Trippin
                 this.OnIcaoCodeChanging(value);
                 this._IcaoCode = value;
                 this.OnIcaoCodeChanged();
+                this.OnPropertyChanged("IcaoCode");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -999,6 +1212,7 @@ namespace Trippin
         /// There are no comments for Property IataCode in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("IataCode")]
         public string IataCode
         {
             get
@@ -1010,6 +1224,7 @@ namespace Trippin
                 this.OnIataCodeChanging(value);
                 this._IataCode = value;
                 this.OnIataCodeChanged();
+                this.OnPropertyChanged("IataCode");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1020,6 +1235,7 @@ namespace Trippin
         /// There are no comments for Property Location in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Location")]
         public global::Trippin.AirportLocation Location
         {
             get
@@ -1031,22 +1247,87 @@ namespace Trippin
                 this.OnLocationChanging(value);
                 this._Location = value;
                 this.OnLocationChanged();
+                this.OnPropertyChanged("Location");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
         private global::Trippin.AirportLocation _Location;
         partial void OnLocationChanging(global::Trippin.AirportLocation value);
         partial void OnLocationChanged();
+        /// <summary>
+        /// Keep track of the synchronization context of each event handler that is registered.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        private readonly global::System.Collections.Generic.List<(global::System.Threading.SynchronizationContext context, global::System.ComponentModel.PropertyChangedEventHandler handler)> _handlers = new global::System.Collections.Generic.List<(global::System.Threading.SynchronizationContext context, global::System.ComponentModel.PropertyChangedEventHandler handler)>();
+        /// <summary>
+        /// This event is raised when the value of the property is changed
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged
+        {
+            add => _handlers.Add((global::System.Threading.SynchronizationContext.Current, value));
+            remove
+            {
+                var i = 0;
+                foreach (var item in _handlers)
+                {
+                    if (item.handler.Equals(value))
+                    {
+                        _handlers.RemoveAt(i);
+                        break;
+                    }
+                    i++;
+                }
+            }
+        }
+        /// <summary>
+        /// The value of the property is changed
+        /// </summary>
+        /// <param name="property">property name</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        protected global::System.Threading.Tasks.Task OnPropertyChanged([global::System.Runtime.CompilerServices.CallerMemberName] string property = null)
+        {
+            var args = new global::System.ComponentModel.PropertyChangedEventArgs(property);
+            var tasks = _handlers
+                .GroupBy(x => x.context, x => x.handler)
+                .Select(g => invokeContext(g.Key, g));
+            return global::System.Threading.Tasks.Task.WhenAll(tasks);
+
+            global::System.Threading.Tasks.Task invokeContext(global::System.Threading.SynchronizationContext context, global::System.Collections.Generic.IEnumerable<global::System.ComponentModel.PropertyChangedEventHandler> l)
+            {
+                if (context != null)
+                {
+                    var tcs = new global::System.Threading.Tasks.TaskCompletionSource<bool>();
+                    context.Post(o =>
+                    {
+                        try { invokeHandlers(l); tcs.TrySetResult(true); }
+                        catch (global::System.Exception e) { tcs.TrySetException(e); }
+                    }, null);
+                    return tcs.Task;
+                }
+                else
+                {
+                    return global::System.Threading.Tasks.Task.Run(() => invokeHandlers(l));
+                }
+            }
+            void invokeHandlers(global::System.Collections.Generic.IEnumerable<global::System.ComponentModel.PropertyChangedEventHandler> l)
+            {
+                foreach (var h in l)
+                    h(this, args);
+            }
+        }
     }
     /// <summary>
     /// There are no comments for Location in the schema.
     /// </summary>
-    public partial class Location
+    [global::Microsoft.OData.Client.OriginalNameAttribute("Location")]
+    public partial class Location : global::System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
         /// There are no comments for Property Address in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Address")]
         public string Address
         {
             get
@@ -1058,6 +1339,7 @@ namespace Trippin
                 this.OnAddressChanging(value);
                 this._Address = value;
                 this.OnAddressChanged();
+                this.OnPropertyChanged("Address");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1068,6 +1350,7 @@ namespace Trippin
         /// There are no comments for Property City in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("City")]
         public global::Trippin.City City
         {
             get
@@ -1079,22 +1362,87 @@ namespace Trippin
                 this.OnCityChanging(value);
                 this._City = value;
                 this.OnCityChanged();
+                this.OnPropertyChanged("City");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
         private global::Trippin.City _City;
         partial void OnCityChanging(global::Trippin.City value);
         partial void OnCityChanged();
+        /// <summary>
+        /// Keep track of the synchronization context of each event handler that is registered.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        private readonly global::System.Collections.Generic.List<(global::System.Threading.SynchronizationContext context, global::System.ComponentModel.PropertyChangedEventHandler handler)> _handlers = new global::System.Collections.Generic.List<(global::System.Threading.SynchronizationContext context, global::System.ComponentModel.PropertyChangedEventHandler handler)>();
+        /// <summary>
+        /// This event is raised when the value of the property is changed
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged
+        {
+            add => _handlers.Add((global::System.Threading.SynchronizationContext.Current, value));
+            remove
+            {
+                var i = 0;
+                foreach (var item in _handlers)
+                {
+                    if (item.handler.Equals(value))
+                    {
+                        _handlers.RemoveAt(i);
+                        break;
+                    }
+                    i++;
+                }
+            }
+        }
+        /// <summary>
+        /// The value of the property is changed
+        /// </summary>
+        /// <param name="property">property name</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        protected global::System.Threading.Tasks.Task OnPropertyChanged([global::System.Runtime.CompilerServices.CallerMemberName] string property = null)
+        {
+            var args = new global::System.ComponentModel.PropertyChangedEventArgs(property);
+            var tasks = _handlers
+                .GroupBy(x => x.context, x => x.handler)
+                .Select(g => invokeContext(g.Key, g));
+            return global::System.Threading.Tasks.Task.WhenAll(tasks);
+
+            global::System.Threading.Tasks.Task invokeContext(global::System.Threading.SynchronizationContext context, global::System.Collections.Generic.IEnumerable<global::System.ComponentModel.PropertyChangedEventHandler> l)
+            {
+                if (context != null)
+                {
+                    var tcs = new global::System.Threading.Tasks.TaskCompletionSource<bool>();
+                    context.Post(o =>
+                    {
+                        try { invokeHandlers(l); tcs.TrySetResult(true); }
+                        catch (global::System.Exception e) { tcs.TrySetException(e); }
+                    }, null);
+                    return tcs.Task;
+                }
+                else
+                {
+                    return global::System.Threading.Tasks.Task.Run(() => invokeHandlers(l));
+                }
+            }
+            void invokeHandlers(global::System.Collections.Generic.IEnumerable<global::System.ComponentModel.PropertyChangedEventHandler> l)
+            {
+                foreach (var h in l)
+                    h(this, args);
+            }
+        }
     }
     /// <summary>
     /// There are no comments for City in the schema.
     /// </summary>
-    public partial class City
+    [global::Microsoft.OData.Client.OriginalNameAttribute("City")]
+    public partial class City : global::System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
         /// There are no comments for Property Name in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Name")]
         public string Name
         {
             get
@@ -1106,6 +1454,7 @@ namespace Trippin
                 this.OnNameChanging(value);
                 this._Name = value;
                 this.OnNameChanged();
+                this.OnPropertyChanged("Name");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1116,6 +1465,7 @@ namespace Trippin
         /// There are no comments for Property CountryRegion in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("CountryRegion")]
         public string CountryRegion
         {
             get
@@ -1127,6 +1477,7 @@ namespace Trippin
                 this.OnCountryRegionChanging(value);
                 this._CountryRegion = value;
                 this.OnCountryRegionChanged();
+                this.OnPropertyChanged("CountryRegion");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1137,6 +1488,7 @@ namespace Trippin
         /// There are no comments for Property Region in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Region")]
         public string Region
         {
             get
@@ -1148,22 +1500,87 @@ namespace Trippin
                 this.OnRegionChanging(value);
                 this._Region = value;
                 this.OnRegionChanged();
+                this.OnPropertyChanged("Region");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
         private string _Region;
         partial void OnRegionChanging(string value);
         partial void OnRegionChanged();
+        /// <summary>
+        /// Keep track of the synchronization context of each event handler that is registered.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        private readonly global::System.Collections.Generic.List<(global::System.Threading.SynchronizationContext context, global::System.ComponentModel.PropertyChangedEventHandler handler)> _handlers = new global::System.Collections.Generic.List<(global::System.Threading.SynchronizationContext context, global::System.ComponentModel.PropertyChangedEventHandler handler)>();
+        /// <summary>
+        /// This event is raised when the value of the property is changed
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged
+        {
+            add => _handlers.Add((global::System.Threading.SynchronizationContext.Current, value));
+            remove
+            {
+                var i = 0;
+                foreach (var item in _handlers)
+                {
+                    if (item.handler.Equals(value))
+                    {
+                        _handlers.RemoveAt(i);
+                        break;
+                    }
+                    i++;
+                }
+            }
+        }
+        /// <summary>
+        /// The value of the property is changed
+        /// </summary>
+        /// <param name="property">property name</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        protected global::System.Threading.Tasks.Task OnPropertyChanged([global::System.Runtime.CompilerServices.CallerMemberName] string property = null)
+        {
+            var args = new global::System.ComponentModel.PropertyChangedEventArgs(property);
+            var tasks = _handlers
+                .GroupBy(x => x.context, x => x.handler)
+                .Select(g => invokeContext(g.Key, g));
+            return global::System.Threading.Tasks.Task.WhenAll(tasks);
+
+            global::System.Threading.Tasks.Task invokeContext(global::System.Threading.SynchronizationContext context, global::System.Collections.Generic.IEnumerable<global::System.ComponentModel.PropertyChangedEventHandler> l)
+            {
+                if (context != null)
+                {
+                    var tcs = new global::System.Threading.Tasks.TaskCompletionSource<bool>();
+                    context.Post(o =>
+                    {
+                        try { invokeHandlers(l); tcs.TrySetResult(true); }
+                        catch (global::System.Exception e) { tcs.TrySetException(e); }
+                    }, null);
+                    return tcs.Task;
+                }
+                else
+                {
+                    return global::System.Threading.Tasks.Task.Run(() => invokeHandlers(l));
+                }
+            }
+            void invokeHandlers(global::System.Collections.Generic.IEnumerable<global::System.ComponentModel.PropertyChangedEventHandler> l)
+            {
+                foreach (var h in l)
+                    h(this, args);
+            }
+        }
     }
     /// <summary>
     /// There are no comments for AirportLocation in the schema.
     /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("AirportLocation")]
     public partial class AirportLocation : Location
     {
         /// <summary>
         /// There are no comments for Property Loc in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Loc")]
         public global::Microsoft.Spatial.GeographyPoint Loc
         {
             get
@@ -1175,6 +1592,7 @@ namespace Trippin
                 this.OnLocChanging(value);
                 this._Loc = value;
                 this.OnLocChanged();
+                this.OnPropertyChanged("Loc");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1185,12 +1603,14 @@ namespace Trippin
     /// <summary>
     /// There are no comments for EventLocation in the schema.
     /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("EventLocation")]
     public partial class EventLocation : Location
     {
         /// <summary>
         /// There are no comments for Property BuildingInfo in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("BuildingInfo")]
         public string BuildingInfo
         {
             get
@@ -1202,6 +1622,7 @@ namespace Trippin
                 this.OnBuildingInfoChanging(value);
                 this._BuildingInfo = value;
                 this.OnBuildingInfoChanged();
+                this.OnPropertyChanged("BuildingInfo");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1212,6 +1633,7 @@ namespace Trippin
     /// <summary>
     /// There are no comments for TripSingle in the schema.
     /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("TripSingle")]
     public partial class TripSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<Trip>
     {
         /// <summary>
@@ -1236,6 +1658,7 @@ namespace Trippin
         /// There are no comments for PlanItems in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("PlanItems")]
         public global::Microsoft.OData.Client.DataServiceQuery<global::Trippin.PlanItem> PlanItems
         {
             get
@@ -1261,7 +1684,8 @@ namespace Trippin
     /// TripId
     /// </KeyProperties>
     [global::Microsoft.OData.Client.Key("TripId")]
-    public partial class Trip : global::Microsoft.OData.Client.BaseEntityType
+    [global::Microsoft.OData.Client.OriginalNameAttribute("Trip")]
+    public partial class Trip : global::Microsoft.OData.Client.BaseEntityType, global::System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
         /// Create a new Trip object.
@@ -1286,6 +1710,7 @@ namespace Trippin
         /// There are no comments for Property TripId in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("TripId")]
         public int TripId
         {
             get
@@ -1297,6 +1722,7 @@ namespace Trippin
                 this.OnTripIdChanging(value);
                 this._TripId = value;
                 this.OnTripIdChanged();
+                this.OnPropertyChanged("TripId");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1307,6 +1733,7 @@ namespace Trippin
         /// There are no comments for Property ShareId in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("ShareId")]
         public global::System.Guid ShareId
         {
             get
@@ -1318,6 +1745,7 @@ namespace Trippin
                 this.OnShareIdChanging(value);
                 this._ShareId = value;
                 this.OnShareIdChanged();
+                this.OnPropertyChanged("ShareId");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1328,6 +1756,7 @@ namespace Trippin
         /// There are no comments for Property Name in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Name")]
         public string Name
         {
             get
@@ -1339,6 +1768,7 @@ namespace Trippin
                 this.OnNameChanging(value);
                 this._Name = value;
                 this.OnNameChanged();
+                this.OnPropertyChanged("Name");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1349,6 +1779,7 @@ namespace Trippin
         /// There are no comments for Property Budget in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Budget")]
         public float Budget
         {
             get
@@ -1360,6 +1791,7 @@ namespace Trippin
                 this.OnBudgetChanging(value);
                 this._Budget = value;
                 this.OnBudgetChanged();
+                this.OnPropertyChanged("Budget");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1370,6 +1802,7 @@ namespace Trippin
         /// There are no comments for Property Description in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Description")]
         public string Description
         {
             get
@@ -1381,6 +1814,7 @@ namespace Trippin
                 this.OnDescriptionChanging(value);
                 this._Description = value;
                 this.OnDescriptionChanged();
+                this.OnPropertyChanged("Description");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1391,7 +1825,8 @@ namespace Trippin
         /// There are no comments for Property Tags in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        public global::System.Collections.ObjectModel.Collection<string> Tags
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Tags")]
+        public global::System.Collections.ObjectModel.ObservableCollection<string> Tags
         {
             get
             {
@@ -1402,16 +1837,18 @@ namespace Trippin
                 this.OnTagsChanging(value);
                 this._Tags = value;
                 this.OnTagsChanged();
+                this.OnPropertyChanged("Tags");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        private global::System.Collections.ObjectModel.Collection<string> _Tags = new global::System.Collections.ObjectModel.Collection<string>();
-        partial void OnTagsChanging(global::System.Collections.ObjectModel.Collection<string> value);
+        private global::System.Collections.ObjectModel.ObservableCollection<string> _Tags = new global::System.Collections.ObjectModel.ObservableCollection<string>();
+        partial void OnTagsChanging(global::System.Collections.ObjectModel.ObservableCollection<string> value);
         partial void OnTagsChanged();
         /// <summary>
         /// There are no comments for Property StartsAt in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("StartsAt")]
         public global::System.DateTimeOffset StartsAt
         {
             get
@@ -1423,6 +1860,7 @@ namespace Trippin
                 this.OnStartsAtChanging(value);
                 this._StartsAt = value;
                 this.OnStartsAtChanged();
+                this.OnPropertyChanged("StartsAt");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1433,6 +1871,7 @@ namespace Trippin
         /// There are no comments for Property EndsAt in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("EndsAt")]
         public global::System.DateTimeOffset EndsAt
         {
             get
@@ -1444,6 +1883,7 @@ namespace Trippin
                 this.OnEndsAtChanging(value);
                 this._EndsAt = value;
                 this.OnEndsAtChanged();
+                this.OnPropertyChanged("EndsAt");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1454,7 +1894,8 @@ namespace Trippin
         /// There are no comments for Property PlanItems in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        public global::System.Collections.ObjectModel.Collection<global::Trippin.PlanItem> PlanItems
+        [global::Microsoft.OData.Client.OriginalNameAttribute("PlanItems")]
+        public global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.PlanItem> PlanItems
         {
             get
             {
@@ -1465,15 +1906,79 @@ namespace Trippin
                 this.OnPlanItemsChanging(value);
                 this._PlanItems = value;
                 this.OnPlanItemsChanged();
+                this.OnPropertyChanged("PlanItems");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        private global::System.Collections.ObjectModel.Collection<global::Trippin.PlanItem> _PlanItems = new global::System.Collections.ObjectModel.Collection<global::Trippin.PlanItem>();
-        partial void OnPlanItemsChanging(global::System.Collections.ObjectModel.Collection<global::Trippin.PlanItem> value);
+        private global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.PlanItem> _PlanItems = new global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.PlanItem>(null, global::Microsoft.OData.Client.TrackingMode.None);
+        partial void OnPlanItemsChanging(global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.PlanItem> value);
         partial void OnPlanItemsChanged();
+        /// <summary>
+        /// Keep track of the synchronization context of each event handler that is registered.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        private readonly global::System.Collections.Generic.List<(global::System.Threading.SynchronizationContext context, global::System.ComponentModel.PropertyChangedEventHandler handler)> _handlers = new global::System.Collections.Generic.List<(global::System.Threading.SynchronizationContext context, global::System.ComponentModel.PropertyChangedEventHandler handler)>();
+        /// <summary>
+        /// This event is raised when the value of the property is changed
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged
+        {
+            add => _handlers.Add((global::System.Threading.SynchronizationContext.Current, value));
+            remove
+            {
+                var i = 0;
+                foreach (var item in _handlers)
+                {
+                    if (item.handler.Equals(value))
+                    {
+                        _handlers.RemoveAt(i);
+                        break;
+                    }
+                    i++;
+                }
+            }
+        }
+        /// <summary>
+        /// The value of the property is changed
+        /// </summary>
+        /// <param name="property">property name</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        protected global::System.Threading.Tasks.Task OnPropertyChanged([global::System.Runtime.CompilerServices.CallerMemberName] string property = null)
+        {
+            var args = new global::System.ComponentModel.PropertyChangedEventArgs(property);
+            var tasks = _handlers
+                .GroupBy(x => x.context, x => x.handler)
+                .Select(g => invokeContext(g.Key, g));
+            return global::System.Threading.Tasks.Task.WhenAll(tasks);
+
+            global::System.Threading.Tasks.Task invokeContext(global::System.Threading.SynchronizationContext context, global::System.Collections.Generic.IEnumerable<global::System.ComponentModel.PropertyChangedEventHandler> l)
+            {
+                if (context != null)
+                {
+                    var tcs = new global::System.Threading.Tasks.TaskCompletionSource<bool>();
+                    context.Post(o =>
+                    {
+                        try { invokeHandlers(l); tcs.TrySetResult(true); }
+                        catch (global::System.Exception e) { tcs.TrySetException(e); }
+                    }, null);
+                    return tcs.Task;
+                }
+                else
+                {
+                    return global::System.Threading.Tasks.Task.Run(() => invokeHandlers(l));
+                }
+            }
+            void invokeHandlers(global::System.Collections.Generic.IEnumerable<global::System.ComponentModel.PropertyChangedEventHandler> l)
+            {
+                foreach (var h in l)
+                    h(this, args);
+            }
+        }
         /// <summary>
         /// There are no comments for GetInvolvedPeople in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("GetInvolvedPeople")]
         public global::Microsoft.OData.Client.DataServiceQuery<global::Trippin.Person> GetInvolvedPeople()
         {
             global::System.Uri requestUri;
@@ -1484,6 +1989,7 @@ namespace Trippin
     /// <summary>
     /// There are no comments for PlanItemSingle in the schema.
     /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("PlanItemSingle")]
     public partial class PlanItemSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<PlanItem>
     {
         /// <summary>
@@ -1512,7 +2018,8 @@ namespace Trippin
     /// PlanItemId
     /// </KeyProperties>
     [global::Microsoft.OData.Client.Key("PlanItemId")]
-    public partial class PlanItem : global::Microsoft.OData.Client.BaseEntityType
+    [global::Microsoft.OData.Client.OriginalNameAttribute("PlanItem")]
+    public partial class PlanItem : global::Microsoft.OData.Client.BaseEntityType, global::System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
         /// Create a new PlanItem object.
@@ -1535,6 +2042,7 @@ namespace Trippin
         /// There are no comments for Property PlanItemId in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("PlanItemId")]
         public int PlanItemId
         {
             get
@@ -1546,6 +2054,7 @@ namespace Trippin
                 this.OnPlanItemIdChanging(value);
                 this._PlanItemId = value;
                 this.OnPlanItemIdChanged();
+                this.OnPropertyChanged("PlanItemId");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1556,6 +2065,7 @@ namespace Trippin
         /// There are no comments for Property ConfirmationCode in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("ConfirmationCode")]
         public string ConfirmationCode
         {
             get
@@ -1567,6 +2077,7 @@ namespace Trippin
                 this.OnConfirmationCodeChanging(value);
                 this._ConfirmationCode = value;
                 this.OnConfirmationCodeChanged();
+                this.OnPropertyChanged("ConfirmationCode");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1577,6 +2088,7 @@ namespace Trippin
         /// There are no comments for Property StartsAt in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("StartsAt")]
         public global::System.DateTimeOffset StartsAt
         {
             get
@@ -1588,6 +2100,7 @@ namespace Trippin
                 this.OnStartsAtChanging(value);
                 this._StartsAt = value;
                 this.OnStartsAtChanged();
+                this.OnPropertyChanged("StartsAt");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1598,6 +2111,7 @@ namespace Trippin
         /// There are no comments for Property EndsAt in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("EndsAt")]
         public global::System.DateTimeOffset EndsAt
         {
             get
@@ -1609,6 +2123,7 @@ namespace Trippin
                 this.OnEndsAtChanging(value);
                 this._EndsAt = value;
                 this.OnEndsAtChanged();
+                this.OnPropertyChanged("EndsAt");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1619,6 +2134,7 @@ namespace Trippin
         /// There are no comments for Property Duration in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Duration")]
         public global::System.TimeSpan Duration
         {
             get
@@ -1630,16 +2146,80 @@ namespace Trippin
                 this.OnDurationChanging(value);
                 this._Duration = value;
                 this.OnDurationChanged();
+                this.OnPropertyChanged("Duration");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
         private global::System.TimeSpan _Duration;
         partial void OnDurationChanging(global::System.TimeSpan value);
         partial void OnDurationChanged();
+        /// <summary>
+        /// Keep track of the synchronization context of each event handler that is registered.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        private readonly global::System.Collections.Generic.List<(global::System.Threading.SynchronizationContext context, global::System.ComponentModel.PropertyChangedEventHandler handler)> _handlers = new global::System.Collections.Generic.List<(global::System.Threading.SynchronizationContext context, global::System.ComponentModel.PropertyChangedEventHandler handler)>();
+        /// <summary>
+        /// This event is raised when the value of the property is changed
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged
+        {
+            add => _handlers.Add((global::System.Threading.SynchronizationContext.Current, value));
+            remove
+            {
+                var i = 0;
+                foreach (var item in _handlers)
+                {
+                    if (item.handler.Equals(value))
+                    {
+                        _handlers.RemoveAt(i);
+                        break;
+                    }
+                    i++;
+                }
+            }
+        }
+        /// <summary>
+        /// The value of the property is changed
+        /// </summary>
+        /// <param name="property">property name</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        protected global::System.Threading.Tasks.Task OnPropertyChanged([global::System.Runtime.CompilerServices.CallerMemberName] string property = null)
+        {
+            var args = new global::System.ComponentModel.PropertyChangedEventArgs(property);
+            var tasks = _handlers
+                .GroupBy(x => x.context, x => x.handler)
+                .Select(g => invokeContext(g.Key, g));
+            return global::System.Threading.Tasks.Task.WhenAll(tasks);
+
+            global::System.Threading.Tasks.Task invokeContext(global::System.Threading.SynchronizationContext context, global::System.Collections.Generic.IEnumerable<global::System.ComponentModel.PropertyChangedEventHandler> l)
+            {
+                if (context != null)
+                {
+                    var tcs = new global::System.Threading.Tasks.TaskCompletionSource<bool>();
+                    context.Post(o =>
+                    {
+                        try { invokeHandlers(l); tcs.TrySetResult(true); }
+                        catch (global::System.Exception e) { tcs.TrySetException(e); }
+                    }, null);
+                    return tcs.Task;
+                }
+                else
+                {
+                    return global::System.Threading.Tasks.Task.Run(() => invokeHandlers(l));
+                }
+            }
+            void invokeHandlers(global::System.Collections.Generic.IEnumerable<global::System.ComponentModel.PropertyChangedEventHandler> l)
+            {
+                foreach (var h in l)
+                    h(this, args);
+            }
+        }
     }
     /// <summary>
     /// There are no comments for EventSingle in the schema.
     /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("EventSingle")]
     public partial class EventSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<Event>
     {
         /// <summary>
@@ -1668,6 +2248,7 @@ namespace Trippin
     /// PlanItemId
     /// </KeyProperties>
     [global::Microsoft.OData.Client.Key("PlanItemId")]
+    [global::Microsoft.OData.Client.OriginalNameAttribute("Event")]
     public partial class Event : PlanItem
     {
         /// <summary>
@@ -1691,6 +2272,7 @@ namespace Trippin
         /// There are no comments for Property OccursAt in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("OccursAt")]
         public global::Trippin.EventLocation OccursAt
         {
             get
@@ -1702,6 +2284,7 @@ namespace Trippin
                 this.OnOccursAtChanging(value);
                 this._OccursAt = value;
                 this.OnOccursAtChanged();
+                this.OnPropertyChanged("OccursAt");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1712,6 +2295,7 @@ namespace Trippin
         /// There are no comments for Property Description in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Description")]
         public string Description
         {
             get
@@ -1723,6 +2307,7 @@ namespace Trippin
                 this.OnDescriptionChanging(value);
                 this._Description = value;
                 this.OnDescriptionChanged();
+                this.OnPropertyChanged("Description");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1733,6 +2318,7 @@ namespace Trippin
     /// <summary>
     /// There are no comments for PublicTransportationSingle in the schema.
     /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("PublicTransportationSingle")]
     public partial class PublicTransportationSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<PublicTransportation>
     {
         /// <summary>
@@ -1761,6 +2347,7 @@ namespace Trippin
     /// PlanItemId
     /// </KeyProperties>
     [global::Microsoft.OData.Client.Key("PlanItemId")]
+    [global::Microsoft.OData.Client.OriginalNameAttribute("PublicTransportation")]
     public partial class PublicTransportation : PlanItem
     {
         /// <summary>
@@ -1784,6 +2371,7 @@ namespace Trippin
         /// There are no comments for Property SeatNumber in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("SeatNumber")]
         public string SeatNumber
         {
             get
@@ -1795,6 +2383,7 @@ namespace Trippin
                 this.OnSeatNumberChanging(value);
                 this._SeatNumber = value;
                 this.OnSeatNumberChanged();
+                this.OnPropertyChanged("SeatNumber");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1805,6 +2394,7 @@ namespace Trippin
     /// <summary>
     /// There are no comments for FlightSingle in the schema.
     /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("FlightSingle")]
     public partial class FlightSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<Flight>
     {
         /// <summary>
@@ -1829,6 +2419,7 @@ namespace Trippin
         /// There are no comments for Airline in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Airline")]
         public global::Trippin.AirlineSingle Airline
         {
             get
@@ -1850,6 +2441,7 @@ namespace Trippin
         /// There are no comments for From in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("From")]
         public global::Trippin.AirportSingle From
         {
             get
@@ -1871,6 +2463,7 @@ namespace Trippin
         /// There are no comments for To in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("To")]
         public global::Trippin.AirportSingle To
         {
             get
@@ -1896,6 +2489,7 @@ namespace Trippin
     /// PlanItemId
     /// </KeyProperties>
     [global::Microsoft.OData.Client.Key("PlanItemId")]
+    [global::Microsoft.OData.Client.OriginalNameAttribute("Flight")]
     public partial class Flight : PublicTransportation
     {
         /// <summary>
@@ -1919,6 +2513,7 @@ namespace Trippin
         /// There are no comments for Property FlightNumber in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("FlightNumber")]
         public string FlightNumber
         {
             get
@@ -1930,6 +2525,7 @@ namespace Trippin
                 this.OnFlightNumberChanging(value);
                 this._FlightNumber = value;
                 this.OnFlightNumberChanged();
+                this.OnPropertyChanged("FlightNumber");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1940,6 +2536,7 @@ namespace Trippin
         /// There are no comments for Property Airline in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Airline")]
         public global::Trippin.Airline Airline
         {
             get
@@ -1951,6 +2548,7 @@ namespace Trippin
                 this.OnAirlineChanging(value);
                 this._Airline = value;
                 this.OnAirlineChanged();
+                this.OnPropertyChanged("Airline");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1961,6 +2559,7 @@ namespace Trippin
         /// There are no comments for Property From in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("From")]
         public global::Trippin.Airport From
         {
             get
@@ -1972,6 +2571,7 @@ namespace Trippin
                 this.OnFromChanging(value);
                 this._From = value;
                 this.OnFromChanged();
+                this.OnPropertyChanged("From");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -1982,6 +2582,7 @@ namespace Trippin
         /// There are no comments for Property To in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("To")]
         public global::Trippin.Airport To
         {
             get
@@ -1993,6 +2594,7 @@ namespace Trippin
                 this.OnToChanging(value);
                 this._To = value;
                 this.OnToChanged();
+                this.OnPropertyChanged("To");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -2003,6 +2605,7 @@ namespace Trippin
     /// <summary>
     /// There are no comments for EmployeeSingle in the schema.
     /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("EmployeeSingle")]
     public partial class EmployeeSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<Employee>
     {
         /// <summary>
@@ -2027,6 +2630,7 @@ namespace Trippin
         /// There are no comments for Peers in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Peers")]
         public global::Microsoft.OData.Client.DataServiceQuery<global::Trippin.Person> Peers
         {
             get
@@ -2048,6 +2652,7 @@ namespace Trippin
         /// There are no comments for Friends in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Friends")]
         public global::Microsoft.OData.Client.DataServiceQuery<global::Trippin.Person> Friends
         {
             get
@@ -2069,6 +2674,7 @@ namespace Trippin
         /// There are no comments for BestFriend in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("BestFriend")]
         public global::Trippin.PersonSingle BestFriend
         {
             get
@@ -2090,6 +2696,7 @@ namespace Trippin
         /// There are no comments for Trips in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Trips")]
         public global::Microsoft.OData.Client.DataServiceQuery<global::Trippin.Trip> Trips
         {
             get
@@ -2115,6 +2722,7 @@ namespace Trippin
     /// UserName
     /// </KeyProperties>
     [global::Microsoft.OData.Client.Key("UserName")]
+    [global::Microsoft.OData.Client.OriginalNameAttribute("Employee")]
     public partial class Employee : Person
     {
         /// <summary>
@@ -2140,6 +2748,7 @@ namespace Trippin
         /// There are no comments for Property Cost in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Cost")]
         public long Cost
         {
             get
@@ -2151,6 +2760,7 @@ namespace Trippin
                 this.OnCostChanging(value);
                 this._Cost = value;
                 this.OnCostChanged();
+                this.OnPropertyChanged("Cost");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -2161,7 +2771,8 @@ namespace Trippin
         /// There are no comments for Property Peers in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        public global::System.Collections.ObjectModel.Collection<global::Trippin.Person> Peers
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Peers")]
+        public global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.Person> Peers
         {
             get
             {
@@ -2172,16 +2783,18 @@ namespace Trippin
                 this.OnPeersChanging(value);
                 this._Peers = value;
                 this.OnPeersChanged();
+                this.OnPropertyChanged("Peers");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        private global::System.Collections.ObjectModel.Collection<global::Trippin.Person> _Peers = new global::System.Collections.ObjectModel.Collection<global::Trippin.Person>();
-        partial void OnPeersChanging(global::System.Collections.ObjectModel.Collection<global::Trippin.Person> value);
+        private global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.Person> _Peers = new global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.Person>(null, global::Microsoft.OData.Client.TrackingMode.None);
+        partial void OnPeersChanging(global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.Person> value);
         partial void OnPeersChanged();
     }
     /// <summary>
     /// There are no comments for ManagerSingle in the schema.
     /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("ManagerSingle")]
     public partial class ManagerSingle : global::Microsoft.OData.Client.DataServiceQuerySingle<Manager>
     {
         /// <summary>
@@ -2206,6 +2819,7 @@ namespace Trippin
         /// There are no comments for DirectReports in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DirectReports")]
         public global::Microsoft.OData.Client.DataServiceQuery<global::Trippin.Person> DirectReports
         {
             get
@@ -2227,6 +2841,7 @@ namespace Trippin
         /// There are no comments for Friends in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Friends")]
         public global::Microsoft.OData.Client.DataServiceQuery<global::Trippin.Person> Friends
         {
             get
@@ -2248,6 +2863,7 @@ namespace Trippin
         /// There are no comments for BestFriend in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("BestFriend")]
         public global::Trippin.PersonSingle BestFriend
         {
             get
@@ -2269,6 +2885,7 @@ namespace Trippin
         /// There are no comments for Trips in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Trips")]
         public global::Microsoft.OData.Client.DataServiceQuery<global::Trippin.Trip> Trips
         {
             get
@@ -2294,6 +2911,7 @@ namespace Trippin
     /// UserName
     /// </KeyProperties>
     [global::Microsoft.OData.Client.Key("UserName")]
+    [global::Microsoft.OData.Client.OriginalNameAttribute("Manager")]
     public partial class Manager : Person
     {
         /// <summary>
@@ -2319,6 +2937,7 @@ namespace Trippin
         /// There are no comments for Property Budget in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Budget")]
         public long Budget
         {
             get
@@ -2330,6 +2949,7 @@ namespace Trippin
                 this.OnBudgetChanging(value);
                 this._Budget = value;
                 this.OnBudgetChanged();
+                this.OnPropertyChanged("Budget");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -2340,6 +2960,7 @@ namespace Trippin
         /// There are no comments for Property BossOffice in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
+        [global::Microsoft.OData.Client.OriginalNameAttribute("BossOffice")]
         public global::Trippin.Location BossOffice
         {
             get
@@ -2351,6 +2972,7 @@ namespace Trippin
                 this.OnBossOfficeChanging(value);
                 this._BossOffice = value;
                 this.OnBossOfficeChanged();
+                this.OnPropertyChanged("BossOffice");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
@@ -2361,7 +2983,8 @@ namespace Trippin
         /// There are no comments for Property DirectReports in the schema.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        public global::System.Collections.ObjectModel.Collection<global::Trippin.Person> DirectReports
+        [global::Microsoft.OData.Client.OriginalNameAttribute("DirectReports")]
+        public global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.Person> DirectReports
         {
             get
             {
@@ -2372,30 +2995,40 @@ namespace Trippin
                 this.OnDirectReportsChanging(value);
                 this._DirectReports = value;
                 this.OnDirectReportsChanged();
+                this.OnPropertyChanged("DirectReports");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.OData.Client.Design.T4", "2.7.0")]
-        private global::System.Collections.ObjectModel.Collection<global::Trippin.Person> _DirectReports = new global::System.Collections.ObjectModel.Collection<global::Trippin.Person>();
-        partial void OnDirectReportsChanging(global::System.Collections.ObjectModel.Collection<global::Trippin.Person> value);
+        private global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.Person> _DirectReports = new global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.Person>(null, global::Microsoft.OData.Client.TrackingMode.None);
+        partial void OnDirectReportsChanging(global::Microsoft.OData.Client.DataServiceCollection<global::Trippin.Person> value);
         partial void OnDirectReportsChanged();
     }
     /// <summary>
     /// There are no comments for PersonGender in the schema.
     /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("PersonGender")]
     public enum PersonGender
     {
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Male")]
         Male = 0,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Female")]
         Female = 1,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Unknown")]
         Unknown = 2
     }
     /// <summary>
     /// There are no comments for Feature in the schema.
     /// </summary>
+    [global::Microsoft.OData.Client.OriginalNameAttribute("Feature")]
     public enum Feature
     {
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Feature1")]
         Feature1 = 0,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Feature2")]
         Feature2 = 1,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Feature3")]
         Feature3 = 2,
+        [global::Microsoft.OData.Client.OriginalNameAttribute("Feature4")]
         Feature4 = 3
     }
     /// <summary>
@@ -2690,6 +3323,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for GetFavoriteAirline in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("GetFavoriteAirline")]
         public static global::Trippin.AirlineSingle GetFavoriteAirline(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::Trippin.Person> _source)
         {
             if (!_source.IsComposable)
@@ -2702,6 +3336,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for GetFavoriteAirline in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("GetFavoriteAirline")]
         public static global::Trippin.AirlineSingle GetFavoriteAirline(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::Trippin.Employee> _source)
         {
             if (!_source.IsComposable)
@@ -2714,6 +3349,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for GetFavoriteAirline in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("GetFavoriteAirline")]
         public static global::Trippin.AirlineSingle GetFavoriteAirline(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::Trippin.Manager> _source)
         {
             if (!_source.IsComposable)
@@ -2726,6 +3362,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for GetFriendsTrips in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("GetFriendsTrips")]
         public static global::Microsoft.OData.Client.DataServiceQuery<global::Trippin.Trip> GetFriendsTrips(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::Trippin.Person> _source, string userName)
         {
             if (!_source.IsComposable)
@@ -2738,6 +3375,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for GetFriendsTrips in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("GetFriendsTrips")]
         public static global::Microsoft.OData.Client.DataServiceQuery<global::Trippin.Trip> GetFriendsTrips(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::Trippin.Employee> _source, string userName)
         {
             if (!_source.IsComposable)
@@ -2750,6 +3388,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for GetFriendsTrips in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("GetFriendsTrips")]
         public static global::Microsoft.OData.Client.DataServiceQuery<global::Trippin.Trip> GetFriendsTrips(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::Trippin.Manager> _source, string userName)
         {
             if (!_source.IsComposable)
@@ -2762,6 +3401,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for GetInvolvedPeople in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("GetInvolvedPeople")]
         public static global::Microsoft.OData.Client.DataServiceQuery<global::Trippin.Person> GetInvolvedPeople(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::Trippin.Trip> _source)
         {
             if (!_source.IsComposable)
@@ -2774,6 +3414,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for UpdateLastName in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("UpdateLastName")]
         public static global::Microsoft.OData.Client.DataServiceActionQuerySingle<bool> UpdateLastName(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::Trippin.Person> _source, string lastName)
         {
             if (!_source.IsComposable)
@@ -2786,6 +3427,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for UpdateLastName in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("UpdateLastName")]
         public static global::Microsoft.OData.Client.DataServiceActionQuerySingle<bool> UpdateLastName(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::Trippin.Employee> _source, string lastName)
         {
             if (!_source.IsComposable)
@@ -2798,6 +3440,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for UpdateLastName in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("UpdateLastName")]
         public static global::Microsoft.OData.Client.DataServiceActionQuerySingle<bool> UpdateLastName(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::Trippin.Manager> _source, string lastName)
         {
             if (!_source.IsComposable)
@@ -2810,6 +3453,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for ShareTrip in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("ShareTrip")]
         public static global::Microsoft.OData.Client.DataServiceActionQuery ShareTrip(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::Trippin.Person> _source, string userName, int tripId)
         {
             if (!_source.IsComposable)
@@ -2823,6 +3467,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for ShareTrip in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("ShareTrip")]
         public static global::Microsoft.OData.Client.DataServiceActionQuery ShareTrip(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::Trippin.Employee> _source, string userName, int tripId)
         {
             if (!_source.IsComposable)
@@ -2836,6 +3481,7 @@ namespace Trippin
         /// <summary>
         /// There are no comments for ShareTrip in the schema.
         /// </summary>
+        [global::Microsoft.OData.Client.OriginalNameAttribute("ShareTrip")]
         public static global::Microsoft.OData.Client.DataServiceActionQuery ShareTrip(this global::Microsoft.OData.Client.DataServiceQuerySingle<global::Trippin.Manager> _source, string userName, int tripId)
         {
             if (!_source.IsComposable)
