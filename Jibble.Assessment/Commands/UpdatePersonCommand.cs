@@ -3,13 +3,19 @@
 using Jibble.Assessment.Core.Common;
 using Jibble.Assessment.Core.Common.Interfaces;
 using Jibble.Assessment.Core.Entities;
+using Jibble.Assessment.Parsers;
 
 namespace Jibble.Assessment.ConsoleApp.Commands;
 
 internal class UpdatePersonCommand : Command
 {
+    private readonly IPersonRepository _personRepository;
+
     public UpdatePersonCommand(IPersonRepository personRepository) : base("update", "update person's data.")
     {
+        _personRepository = personRepository;
+
+        #region Configure Command
         Argument<string> usernameArgument = new("username", "Username");
 
         AddArgument(usernameArgument);
@@ -22,30 +28,22 @@ internal class UpdatePersonCommand : Command
         AddOption(genderOption);
         AddOption(favFeatureOption);
 
-        System.CommandLine.Handler.SetHandler(this,
-            (string username, string firstName, string gender, string favFeature) =>
-            {
-                Gender parsedGender = Gender.Unknown;
+        System.CommandLine.Handler.SetHandler<string, string, string, string>(this, UpdatePerson, usernameArgument, firstNameOption, genderOption, favFeatureOption);
+        #endregion
+    }
 
-                if (!string.IsNullOrWhiteSpace(gender) && !Enum.TryParse(gender, true, out parsedGender))
-                    throw new ArgumentException($"Invalid gender value, please use one of the following, {Gender.Male}, {Gender.Female} or leave it empty.", nameof(gender));
+    public void UpdatePerson(string username, string firstName, string gender, string favFeature)
+    {
+        Gender? parsedGender = PersonParser.ParseGender(gender);
 
-                Feature parsedFavFeature = Feature.None;
+        Feature? parsedFeature = PersonParser.ParseFeature(favFeature);
 
-                if (!string.IsNullOrWhiteSpace(favFeature) && !Enum.TryParse(favFeature, true, out parsedFavFeature))
-                    throw new ArgumentException($"Invalid favourite feature value, please use one of the following, {Feature.Feature1}, {Feature.Feature2}, {Feature.Feature3}, {Feature.Feature4} or leave it empty.", nameof(favFeature));
-
-                personRepository.CreatePerson(new Person()
-                {
-                    UserName = username,
-                    FirstName = firstName,
-                    Gender = parsedGender,
-                    FavoriteFeature = parsedFavFeature
-                });
-            },
-            usernameArgument,
-            firstNameOption,
-            genderOption,
-            favFeatureOption);
+        _personRepository.UpdatePerson(new Person()
+        {
+            UserName = username,
+            FirstName = firstName,
+            Gender = parsedGender,
+            FavoriteFeature = parsedFeature
+        });
     }
 }

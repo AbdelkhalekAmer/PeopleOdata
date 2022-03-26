@@ -4,49 +4,46 @@ using System.Text.Json;
 using Jibble.Assessment.Core.Common;
 using Jibble.Assessment.Core.Common.Interfaces;
 using Jibble.Assessment.Core.Entities;
+using Jibble.Assessment.Parsers;
 
 namespace Jibble.Assessment.ConsoleApp.Commands;
 
 internal class ListCommand : Command
 {
+    private readonly IPersonRepository _personRepository;
+
     public ListCommand(IPersonRepository personRepository) : base("list", "List all people.")
     {
+        _personRepository = personRepository;
+
+        #region Configure Command
         Option<string> firstNameOption = new("--first-name", "First Name");
+        firstNameOption.AddAlias("-fn");
+
         Option<string> genderOption = new("--gender", "Gender");
+        genderOption.AddAlias("-g");
+
         Option<string> favFeatureOption = new("--fav-feature", "Favourite Feature");
+        favFeatureOption.AddAlias("-fav");
 
         AddOption(firstNameOption);
         AddOption(genderOption);
         AddOption(favFeatureOption);
 
-        System.CommandLine.Handler.SetHandler(this,
-            (string firstName, string gender, string favFeature) =>
-            {
-                Gender parsedGender = Gender.Unknown;
+        System.CommandLine.Handler.SetHandler<string?, string?, string?>(this, GetPeople, firstNameOption, genderOption, favFeatureOption);
+        #endregion
+    }
 
-                if (!string.IsNullOrWhiteSpace(gender) &&
-                    !Enum.TryParse(gender.Trim('\'').Trim('\"'), true, out parsedGender))
-                    throw new ArgumentException($"Invalid gender value, please use one of the following, {Gender.Male}, {Gender.Female} or leave it empty.", nameof(gender));
+    public void GetPeople(string? firstName, string? gender, string? favFeature)
+    {
+        Gender? parsedGender = PersonParser.ParseGender(gender);
 
-                Feature parsedFavFeature = Feature.None;
+        Feature? parsedFeature = PersonParser.ParseFeature(favFeature);
 
-                if (!string.IsNullOrWhiteSpace(favFeature) &&
-                    !Enum.TryParse(favFeature.Trim('\'').Trim('\"'), true, out parsedFavFeature))
-                    throw new ArgumentException($"Invalid favourite feature value, please use one of the following, {Feature.Feature1}, {Feature.Feature2}, {Feature.Feature3}, {Feature.Feature4} or leave it empty.", nameof(favFeature));
+        IEnumerable<Person> people = _personRepository.GetPeople(firstName, parsedGender, parsedFeature);
 
-                IEnumerable<Person> people = personRepository.GetPeople(firstName,
-                   string.IsNullOrWhiteSpace(gender) ? null : parsedGender,
-                    string.IsNullOrWhiteSpace(favFeature) ? null : parsedFavFeature);
+        JsonSerializerOptions options = new() { WriteIndented = true };
 
-                JsonSerializerOptions options = new()
-                {
-                    WriteIndented = true
-                };
-
-                Console.WriteLine(JsonSerializer.Serialize(people, options));
-            },
-            firstNameOption,
-            genderOption,
-            favFeatureOption);
+        Console.WriteLine(JsonSerializer.Serialize(people, options));
     }
 }

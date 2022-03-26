@@ -9,10 +9,6 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        //args = "list --gender female".Split(' ');
-        //args = "list --first-name 'C'".Split(' ');
-        //args = "get 'ursulabright'".Split(' ');
-
         RootCommand application = new("People OData Service");
 
         PersonRepository repository = new();
