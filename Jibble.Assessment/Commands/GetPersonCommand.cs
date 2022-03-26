@@ -16,9 +16,14 @@ internal class GetPersonCommand : Command
 
         System.CommandLine.Handler.SetHandler(this, (string username) =>
         {
-            Person person = personRepository.GetPerson(username);
+            Person person = personRepository.GetPerson(username.Trim('\'').Trim('\"'));
 
-            Console.WriteLine(JsonSerializer.Serialize(person));
+            JsonSerializerOptions options = new()
+            {
+                WriteIndented = true
+            };
+
+            Console.WriteLine(JsonSerializer.Serialize(person, options));
         }, usernameArgument);
     }
 }

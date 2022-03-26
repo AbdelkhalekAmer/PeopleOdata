@@ -24,19 +24,26 @@ internal class ListCommand : Command
             {
                 Gender parsedGender = Gender.Unknown;
 
-                if (!string.IsNullOrWhiteSpace(gender) && !Enum.TryParse(gender, true, out parsedGender))
+                if (!string.IsNullOrWhiteSpace(gender) &&
+                    !Enum.TryParse(gender.Trim('\'').Trim('\"'), true, out parsedGender))
                     throw new ArgumentException($"Invalid gender value, please use one of the following, {Gender.Male}, {Gender.Female} or leave it empty.", nameof(gender));
 
                 Feature parsedFavFeature = Feature.None;
 
-                if (!string.IsNullOrWhiteSpace(favFeature) && !Enum.TryParse(favFeature, true, out parsedFavFeature))
+                if (!string.IsNullOrWhiteSpace(favFeature) &&
+                    !Enum.TryParse(favFeature.Trim('\'').Trim('\"'), true, out parsedFavFeature))
                     throw new ArgumentException($"Invalid favourite feature value, please use one of the following, {Feature.Feature1}, {Feature.Feature2}, {Feature.Feature3}, {Feature.Feature4} or leave it empty.", nameof(favFeature));
 
                 IEnumerable<Person> people = personRepository.GetPeople(firstName,
                    string.IsNullOrWhiteSpace(gender) ? null : parsedGender,
                     string.IsNullOrWhiteSpace(favFeature) ? null : parsedFavFeature);
 
-                Console.WriteLine(JsonSerializer.Serialize(people));
+                JsonSerializerOptions options = new()
+                {
+                    WriteIndented = true
+                };
+
+                Console.WriteLine(JsonSerializer.Serialize(people, options));
             },
             firstNameOption,
             genderOption,

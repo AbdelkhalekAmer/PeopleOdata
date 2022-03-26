@@ -21,15 +21,19 @@ public class PersonRepository : IPersonRepository
         DataServiceQuery<Trippin.Person> query = _container.People;
 
         if (!string.IsNullOrWhiteSpace(firstName))
-            query.AddQueryOption("$filter", $"contains({nameof(Trippin.Person.FirstName)}, '{firstName}')");
+        {
+            if (!firstName.StartsWith('\'') && !firstName.EndsWith('\'')) firstName = $"'{firstName}'";
+
+            query = query.AddQueryOption("$filter", $"contains({nameof(Trippin.Person.FirstName)}, {firstName})");
+        }
 
         if (gender is not null)
-            query.AddQueryOption("$filter",
-                $"{nameof(Trippin.Person.Gender)} eq Microsoft.OData.Service.Sample.TrippinInMemory.Models.PersonGender'{(Trippin.PersonGender)gender}'");
+            query = query.AddQueryOption("$filter",
+                $"{nameof(Trippin.Person.Gender)} eq Trippin.PersonGender'{(Trippin.PersonGender)gender}'");
 
         if (favFeature is not null)
-            query.AddQueryOption("$filter",
-                $"{nameof(Trippin.Person.FavoriteFeature)} eq Microsoft.OData.Service.Sample.TrippinInMemory.Models.Feature'{(Trippin.Feature)favFeature}'");
+            query = query.AddQueryOption("$filter",
+                $"{nameof(Trippin.Person.FavoriteFeature)} eq Trippin.Feature'{(Trippin.Feature)favFeature}'");
 
         Trippin.Person[] oDataPeople = query.ToArray();
 
@@ -46,7 +50,7 @@ public class PersonRepository : IPersonRepository
 
     public Person GetPerson(string username)
     {
-        Trippin.Person? person = _container.People.AddQueryOption("$filter", $"{nameof(Trippin.Person.UserName)} eq {username}").First();
+        Trippin.Person? person = _container.People.AddQueryOption("$filter", $"{nameof(Trippin.Person.UserName)} eq '{username}'").First();
 
         return new Person()
         {
