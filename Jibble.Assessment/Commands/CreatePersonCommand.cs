@@ -10,9 +10,17 @@ namespace Jibble.Assessment.ConsoleApp.Commands;
 internal class CreatePersonCommand : Command
 {
     private readonly IPersonRepository _personRepository;
-    public CreatePersonCommand(IPersonRepository personRepository) : base("create", "create a new person.")
+    private readonly IConsole _console;
+    private readonly PersonParser _parser;
+
+    public CreatePersonCommand(IPersonRepository personRepository, IConsole console, PersonParser parser)
+        : base("create", "create a new person.")
     {
+        #region Fields
         _personRepository = personRepository;
+        _console = console;
+        _parser = parser;
+        #endregion
 
         #region Configure Command
         Option<string> usernameOption = new("--username", "Username");
@@ -31,20 +39,29 @@ internal class CreatePersonCommand : Command
 
     public void CreatePerson(string username, string firstName, string gender, string favFeature)
     {
-        string parsedUsername = PersonParser.ParseUsername(username);
-
-        string? parsedFirstName = PersonParser.ParseFirstName(firstName);
-
-        Gender? parsedGender = PersonParser.ParseGender(gender);
-
-        Feature? parsedFeature = PersonParser.ParseFeature(favFeature);
-
-        _personRepository.CreatePerson(new Person()
+        try
         {
-            UserName = parsedUsername,
-            FirstName = parsedFirstName,
-            Gender = parsedGender,
-            FavoriteFeature = parsedFeature
-        });
+            string parsedUsername = _parser.ParseUsername(username);
+
+            string? parsedFirstName = _parser.ParseFirstName(firstName);
+
+            Gender? parsedGender = _parser.ParseGender(gender);
+
+            Feature? parsedFeature = _parser.ParseFeature(favFeature);
+
+            _personRepository.CreatePerson(new Person()
+            {
+                UserName = parsedUsername,
+                FirstName = parsedFirstName,
+                Gender = parsedGender,
+                FavoriteFeature = parsedFeature
+            });
+
+            _console.WriteLine($"{parsedUsername} is created successfully.");
+        }
+        catch (Exception ex)
+        {
+            _console.WriteError(ex);
+        }
     }
 }

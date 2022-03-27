@@ -1,5 +1,4 @@
 ﻿using System.CommandLine;
-using System.Text.Json;
 
 using Jibble.Assessment.Core.Common.Interfaces;
 using Jibble.Assessment.Core.Entities;
@@ -10,10 +9,17 @@ namespace Jibble.Assessment.ConsoleApp.Commands;
 internal class GetPersonCommand : Command
 {
     private readonly IPersonRepository _personRepository;
+    private readonly IConsole _console;
+    private readonly PersonParser _parser;
 
-    public GetPersonCommand(IPersonRepository personRepository) : base("get", "Get person data.")
+    public GetPersonCommand(IPersonRepository personRepository, IConsole console, PersonParser parser)
+        : base("get", "Get person data.")
     {
+        #region Fields
         _personRepository = personRepository;
+        _console = console;
+        _parser = parser;
+        #endregion
 
         #region Configure Command
         Argument<string> usernameArgument = new("username", "Username");
@@ -26,12 +32,17 @@ internal class GetPersonCommand : Command
 
     public void GetPerson(string username)
     {
-        string parsedUsername = PersonParser.ParseUsername(username);
+        try
+        {
+            string parsedUsername = _parser.ParseUsername(username);
 
-        Person person = _personRepository.GetPerson(parsedUsername);
+            Person person = _personRepository.GetPerson(parsedUsername);
 
-        JsonSerializerOptions options = new() { WriteIndented = true };
-
-        Console.WriteLine(JsonSerializer.Serialize(person, options));
+            _console.Write(person);
+        }
+        catch (Exception ex)
+        {
+            _console.WriteError(ex);
+        }
     }
 }

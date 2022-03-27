@@ -1,5 +1,4 @@
 ﻿using System.CommandLine;
-using System.Text.Json;
 
 using Jibble.Assessment.Core.Common;
 using Jibble.Assessment.Core.Common.Interfaces;
@@ -11,10 +10,17 @@ namespace Jibble.Assessment.ConsoleApp.Commands;
 internal class ListCommand : Command
 {
     private readonly IPersonRepository _personRepository;
+    private readonly IConsole _console;
+    private readonly PersonParser _parser;
 
-    public ListCommand(IPersonRepository personRepository) : base("list", "List all people.")
+    public ListCommand(IPersonRepository personRepository, IConsole console, PersonParser parser)
+        : base("list", "List all people.")
     {
+        #region Fields
         _personRepository = personRepository;
+        _console = console;
+        _parser = parser;
+        #endregion
 
         #region Configure Command
         Option<string> firstNameOption = new("--first-name", "First Name");
@@ -36,16 +42,21 @@ internal class ListCommand : Command
 
     public void GetPeople(string? firstName, string? gender, string? favFeature)
     {
-        string? parsedFirstName = PersonParser.ParseFirstName(firstName);
+        try
+        {
+            string? parsedFirstName = _parser.ParseFirstName(firstName);
 
-        Gender? parsedGender = PersonParser.ParseGender(gender);
+            Gender? parsedGender = _parser.ParseGender(gender);
 
-        Feature? parsedFeature = PersonParser.ParseFeature(favFeature);
+            Feature? parsedFeature = _parser.ParseFeature(favFeature);
 
-        IEnumerable<Person> people = _personRepository.GetPeople(parsedFirstName, parsedGender, parsedFeature);
+            IEnumerable<Person> people = _personRepository.GetPeople(parsedFirstName, parsedGender, parsedFeature);
 
-        JsonSerializerOptions options = new() { WriteIndented = true };
-
-        Console.WriteLine(JsonSerializer.Serialize(people, options));
+            _console.Write(people);
+        }
+        catch (Exception ex)
+        {
+            _console.WriteError(ex);
+        }
     }
 }

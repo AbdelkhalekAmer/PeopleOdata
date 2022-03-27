@@ -4,14 +4,14 @@ using Jibble.Assessment.Core.Common;
 
 namespace Jibble.Assessment.Parsers;
 
-internal static class PersonParser
+internal class PersonParser
 {
-    public static string ParseUsername(string username) =>
+    public string ParseUsername(string username) =>
         username?.Trim('\'').Trim('\"') ?? throw new ArgumentException($"nameof(username) is required.", nameof(username));
 
-    public static string? ParseFirstName(string? firstName) => firstName?.Trim('\'').Trim('\"');
+    public string? ParseFirstName(string? firstName) => firstName?.Trim('\'').Trim('\"');
 
-    public static Gender? ParseGender(string? gender)
+    public Gender? ParseGender(string? gender)
     {
         gender = gender?.Trim('\'').Trim('\"');
 
@@ -26,7 +26,7 @@ internal static class PersonParser
         return string.IsNullOrWhiteSpace(gender) ? null : parsedGender;
     }
 
-    public static Feature? ParseFeature(string? feature)
+    public Feature? ParseFeature(string? feature)
     {
         feature = feature?.Trim('\'').Trim('\"');
 

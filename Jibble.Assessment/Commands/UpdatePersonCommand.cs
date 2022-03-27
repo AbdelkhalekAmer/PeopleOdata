@@ -10,10 +10,17 @@ namespace Jibble.Assessment.ConsoleApp.Commands;
 internal class UpdatePersonCommand : Command
 {
     private readonly IPersonRepository _personRepository;
+    private readonly IConsole _console;
+    private readonly PersonParser _parser;
 
-    public UpdatePersonCommand(IPersonRepository personRepository) : base("update", "update person's data.")
+    public UpdatePersonCommand(IPersonRepository personRepository, IConsole console, PersonParser parser)
+        : base("update", "update person's data.")
     {
+        #region Fields
         _personRepository = personRepository;
+        _console = console;
+        _parser = parser;
+        #endregion
 
         #region Configure Command
         Argument<string> usernameArgument = new("username", "Username");
@@ -34,20 +41,29 @@ internal class UpdatePersonCommand : Command
 
     public void UpdatePerson(string username, string firstName, string gender, string favFeature)
     {
-        string parsedUsername = PersonParser.ParseUsername(username);
-
-        string? parsedFirstName = PersonParser.ParseFirstName(firstName);
-
-        Gender? parsedGender = PersonParser.ParseGender(gender);
-
-        Feature? parsedFeature = PersonParser.ParseFeature(favFeature);
-
-        _personRepository.UpdatePerson(new Person()
+        try
         {
-            UserName = parsedUsername,
-            FirstName = parsedFirstName,
-            Gender = parsedGender,
-            FavoriteFeature = parsedFeature
-        });
+            string parsedUsername = _parser.ParseUsername(username);
+
+            string? parsedFirstName = _parser.ParseFirstName(firstName);
+
+            Gender? parsedGender = _parser.ParseGender(gender);
+
+            Feature? parsedFeature = _parser.ParseFeature(favFeature);
+
+            _personRepository.UpdatePerson(new Person()
+            {
+                UserName = parsedUsername,
+                FirstName = parsedFirstName,
+                Gender = parsedGender,
+                FavoriteFeature = parsedFeature
+            });
+
+            _console.WriteLine($"{parsedUsername} is updated successfully.");
+        }
+        catch (Exception ex)
+        {
+            _console.WriteError(ex);
+        }
     }
 }
