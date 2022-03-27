@@ -10,8 +10,6 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        //args = "create --username TeaMate --first-name abdelkhalek --gender male --fav-feature Feature1".Split(' ');
-
         RootCommand application = new("People OData Service");
 
         #region Application Dependencies

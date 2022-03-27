@@ -22,6 +22,13 @@ public class PersonRepository : IPersonRepository
             UserName = person.UserName,
             FirstName = person.FirstName ?? "N/A",
             Gender = (Trippin.PersonGender)(person.Gender ?? Gender.Unknown),
+            Features = new System.Collections.ObjectModel.ObservableCollection<Trippin.Feature>
+            {
+                Trippin.Feature.Feature1,
+                Trippin.Feature.Feature2,
+                Trippin.Feature.Feature3,
+                Trippin.Feature.Feature4
+            },
             FavoriteFeature = (Trippin.Feature)(person.FavoriteFeature ?? Feature.Feature1)
         };
 
