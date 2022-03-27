@@ -25,8 +25,6 @@ public class PersonRepository : IPersonRepository
             FavoriteFeature = (Trippin.Feature)(person.FavoriteFeature ?? Feature.Feature1)
         };
 
-        oDataPerson.Features.Add(Trippin.Feature.Feature1);
-
         _container.AddToPeople(oDataPerson);
 
         _container.SaveChanges();
