@@ -19,9 +19,16 @@ internal class JibbleConsole : IConsole
 
     public void WriteError(Exception exception)
     {
-        Console.ForegroundColor = ConsoleColor.Red;
+        WriteSingleError(exception);
 
-        Console.WriteLine($"{exception.GetType()}: {exception.Message}");
+        Exception? innerException = exception.InnerException;
+
+        while (innerException is not null)
+        {
+            WriteSingleError(innerException);
+
+            innerException = innerException.InnerException;
+        }
 
         Console.ForegroundColor = ConsoleColor.Magenta;
 
@@ -31,4 +38,11 @@ internal class JibbleConsole : IConsole
     }
 
     public void WriteLine(string message) => Console.WriteLine(message);
+
+    private void WriteSingleError(Exception exception)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+
+        Console.WriteLine($"{exception.GetType()}: {exception.Message}");
+    }
 }

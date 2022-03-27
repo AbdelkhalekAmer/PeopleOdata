@@ -8,8 +8,12 @@ namespace Jibble.Assessment.Infrastracture.Repositories;
 
 public class PersonRepository : IPersonRepository
 {
-    private static Uri _rootUri = new("https://services.odata.org/TripPinRESTierService");
-    private static Trippin.Container _container = new(_rootUri);
+    private readonly Trippin.Container _container;
+
+    public PersonRepository(Trippin.Container container)
+    {
+        _container = container;
+    }
 
     public void CreatePerson(Person person)
     {
@@ -20,6 +24,8 @@ public class PersonRepository : IPersonRepository
             Gender = (Trippin.PersonGender)(person.Gender ?? Gender.Unknown),
             FavoriteFeature = (Trippin.Feature)(person.FavoriteFeature ?? Feature.Feature1)
         };
+
+        oDataPerson.Features.Add(Trippin.Feature.Feature1);
 
         _container.AddToPeople(oDataPerson);
 
