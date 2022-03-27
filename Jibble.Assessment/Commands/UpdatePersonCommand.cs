@@ -5,7 +5,7 @@ using Jibble.Assessment.Core.Common.Interfaces;
 using Jibble.Assessment.Core.Entities;
 using Jibble.Assessment.Parsers;
 
-namespace Jibble.Assessment.ConsoleApp.Commands;
+namespace Jibble.Assessment.Commands;
 
 internal class UpdatePersonCommand : Command
 {

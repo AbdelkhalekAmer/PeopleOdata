@@ -1,10 +1,10 @@
 ﻿using System.CommandLine;
 
-using Jibble.Assessment.ConsoleApp.Commands;
+using Jibble.Assessment.Commands;
 using Jibble.Assessment.Infrastracture.Repositories;
 using Jibble.Assessment.Parsers;
 
-namespace Jibble.Assessment.ConsoleApp;
+namespace Jibble.Assessment;
 
 internal class Program
 {
