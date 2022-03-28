@@ -36,11 +36,11 @@ internal class ListCommand : Command
         AddOption(genderOption);
         AddOption(favFeatureOption);
 
-        System.CommandLine.Handler.SetHandler<string?, string?, string?>(this, GetPeople, firstNameOption, genderOption, favFeatureOption);
+        System.CommandLine.Handler.SetHandler<string?, string?, string?>(this, GetPeopleAsync, firstNameOption, genderOption, favFeatureOption);
         #endregion
     }
 
-    public void GetPeople(string? firstName, string? gender, string? favFeature)
+    public async Task GetPeopleAsync(string? firstName, string? gender, string? favFeature)
     {
         try
         {
@@ -50,7 +50,7 @@ internal class ListCommand : Command
 
             Feature? parsedFeature = _parser.ParseFeature(favFeature);
 
-            IEnumerable<Person> people = _personRepository.GetPeople(parsedFirstName, parsedGender, parsedFeature);
+            IEnumerable<Person>? people = await _personRepository.GetPeopleAsync(parsedFirstName, parsedGender, parsedFeature);
 
             _console.Write(people);
         }

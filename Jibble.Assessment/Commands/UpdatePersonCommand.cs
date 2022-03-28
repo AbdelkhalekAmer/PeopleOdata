@@ -2,7 +2,6 @@
 
 using Jibble.Assessment.Core.Common;
 using Jibble.Assessment.Core.Common.Interfaces;
-using Jibble.Assessment.Core.Entities;
 using Jibble.Assessment.Parsers;
 
 namespace Jibble.Assessment.Commands;
@@ -35,11 +34,11 @@ internal class UpdatePersonCommand : Command
         AddOption(genderOption);
         AddOption(favFeatureOption);
 
-        System.CommandLine.Handler.SetHandler<string, string, string, string>(this, UpdatePerson, usernameArgument, firstNameOption, genderOption, favFeatureOption);
+        System.CommandLine.Handler.SetHandler<string, string, string, string>(this, UpdatePersonAsync, usernameArgument, firstNameOption, genderOption, favFeatureOption);
         #endregion
     }
 
-    public void UpdatePerson(string username, string firstName, string gender, string favFeature)
+    public async Task UpdatePersonAsync(string username, string firstName, string gender, string favFeature)
     {
         try
         {
@@ -51,7 +50,7 @@ internal class UpdatePersonCommand : Command
 
             Feature? parsedFeature = _parser.ParseFeature(favFeature);
 
-            _personRepository.UpdatePerson(new Person()
+            await _personRepository.UpdatePersonAsync(new()
             {
                 UserName = parsedUsername,
                 FirstName = parsedFirstName,

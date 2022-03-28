@@ -8,7 +8,7 @@ namespace Jibble.Assessment;
 
 internal class Program
 {
-    private static void Main(string[] args)
+    private static Task Main(string[] args)
     {
         RootCommand application = new("People OData Service");
 
@@ -16,8 +16,8 @@ internal class Program
         JibbleConsole console = new();
         PersonParser parser = new();
 
-        string rootServiceUri = "https://services.odata.org/TripPinRESTierService/(S(atq0tbnnufbk1mm0manwxy3i))";
-        PersonRepository repository = new(new(new(rootServiceUri)));
+        string baseUri = "https://services.odata.org/TripPinRESTierService/(S(atq0tbnnufbk1mm0manwxy3i))";
+        PersonRepository repository = new(new(baseUri));
         #endregion
 
         #region Commands
@@ -27,6 +27,6 @@ internal class Program
         application.AddCommand(new UpdatePersonCommand(repository, console, parser));
         #endregion
 
-        application.Invoke(args);
+        return application.InvokeAsync(args);
     }
 }

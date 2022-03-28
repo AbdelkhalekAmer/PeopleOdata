@@ -26,17 +26,17 @@ internal class GetPersonCommand : Command
 
         AddArgument(usernameArgument);
 
-        System.CommandLine.Handler.SetHandler<string>(this, GetPerson, usernameArgument);
+        System.CommandLine.Handler.SetHandler<string>(this, GetPersonAsync, usernameArgument);
         #endregion
     }
 
-    public void GetPerson(string username)
+    public async Task GetPersonAsync(string username)
     {
         try
         {
             string parsedUsername = _parser.ParseUsername(username);
 
-            Person person = _personRepository.GetPerson(parsedUsername);
+            Person? person = await _personRepository.GetPersonAsync(parsedUsername);
 
             _console.Write(person);
         }

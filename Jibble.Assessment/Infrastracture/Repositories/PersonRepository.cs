@@ -1,102 +1,126 @@
-﻿using Jibble.Assessment.Core.Common;
+﻿using System.Text;
+
+using Jibble.Assessment.Core.Common;
 using Jibble.Assessment.Core.Common.Interfaces;
 using Jibble.Assessment.Core.Entities;
 
-using Microsoft.OData.Client;
+using Simple.OData.Client;
 
 namespace Jibble.Assessment.Infrastracture.Repositories;
 
 public class PersonRepository : IPersonRepository
 {
-    private readonly Trippin.Container _container;
+    private readonly ODataClient _client;
 
-    public PersonRepository(Trippin.Container container)
+    public PersonRepository(ODataClient client)
     {
-        _container = container;
+        _client = client;
     }
 
-    public void CreatePerson(Person person)
+    public Task CreatePersonAsync(Person person)
     {
-        Trippin.Person oDataPerson = new()
+        if (person.Gender is null)
+            person.Gender = Gender.Unknown;
+
+        if (person.FavoriteFeature is null)
+            person.FavoriteFeature = Feature.Feature1;
+
+        person.Features = new[]
         {
-            UserName = person.UserName,
-            FirstName = person.FirstName ?? "N/A",
-            Gender = (Trippin.PersonGender)(person.Gender ?? Gender.Unknown),
-            Features = new System.Collections.ObjectModel.ObservableCollection<Trippin.Feature>
-            {
-                Trippin.Feature.Feature1,
-                Trippin.Feature.Feature2,
-                Trippin.Feature.Feature3,
-                Trippin.Feature.Feature4
-            },
-            FavoriteFeature = (Trippin.Feature)(person.FavoriteFeature ?? Feature.Feature1)
+            Feature.Feature1,
+            Feature.Feature2,
+            Feature.Feature3,
+            Feature.Feature4
         };
 
-        _container.AddToPeople(oDataPerson);
+        person.Emails = new[] { "abdelkhalekamer@outlook.com" };
 
-        _container.SaveChanges();
+        return _client.For<Person>("People").Set(person).InsertEntryAsync();
     }
 
-    public IEnumerable<Person> GetPeople(string? firstName, Gender? gender, Feature? favFeature)
+    public async Task<IEnumerable<Person>?> GetPeopleAsync(string? firstName, Gender? gender, Feature? favFeature)
     {
-        DataServiceQuery<Trippin.Person> query = _container.People;
+        StringBuilder query = new("People");
 
-        if (!string.IsNullOrWhiteSpace(firstName))
-            query = query.AddQueryOption("$filter",
-                $"contains({nameof(Trippin.Person.FirstName)}, '{firstName}')");
-
-        if (gender is not null)
-            query = query.AddQueryOption("$filter",
-                $"{nameof(Trippin.Person.Gender)} eq Trippin.PersonGender'{(Trippin.PersonGender)gender}'");
-
-        if (favFeature is not null)
-            query = query.AddQueryOption("$filter",
-                $"{nameof(Trippin.Person.FavoriteFeature)} eq Trippin.Feature'{(Trippin.Feature)favFeature}'");
-
-        Trippin.Person[] oDataPeople = query.ToArray();
-
-        IEnumerable<Person> people = oDataPeople.Select(person => new Person()
+        if (!string.IsNullOrWhiteSpace(firstName) || gender is not null || favFeature is not null)
         {
-            UserName = person.UserName,
-            FirstName = person.FirstName,
-            Gender = (Gender)person.Gender,
-            FavoriteFeature = (Feature)person.FavoriteFeature
-        });
+            query = query.Append("?$filter=");
+
+            if (!string.IsNullOrWhiteSpace(firstName))
+                query = query.Append($"contains({nameof(Person.FirstName)}, '{firstName}')");
+
+            if (gender is not null)
+            {
+                if (!string.IsNullOrWhiteSpace(firstName)) query.Append(" and ");
+                query = query.Append($"{nameof(Person.Gender)} eq Trippin.PersonGender'{gender}'");
+            }
+
+            if (favFeature is not null)
+            {
+                if (!string.IsNullOrWhiteSpace(firstName) || gender is not null) query.Append(" and ");
+                query = query.Append($"{nameof(Person.FavoriteFeature)} eq Trippin.Feature'{(Feature)favFeature}'");
+            }
+        }
+
+        IEnumerable<IDictionary<string, object>>? oDataPeople = await _client.FindEntriesAsync(query.ToString());
+
+        IEnumerable<Person>? people = oDataPeople?.Select(oDataPerson =>
+            {
+                Enum.TryParse(oDataPerson[nameof(Person.Gender)] as string ?? Gender.Unknown.ToString(), true, out Gender gender);
+
+                Enum.TryParse(oDataPerson[nameof(Person.FavoriteFeature)] as string ?? Feature.None.ToString(), true, out Feature favFeature);
+
+                return new Person()
+                {
+                    UserName = oDataPerson[nameof(Person.UserName)] as string,
+                    FirstName = oDataPerson[nameof(Person.FirstName)] as string,
+                    MiddleName = oDataPerson[nameof(Person.MiddleName)] as string,
+                    LastName = oDataPerson[nameof(Person.LastName)] as string,
+                    Gender = gender,
+                    Age = oDataPerson[nameof(Person.Age)] as long?,
+                    FavoriteFeature = favFeature
+                };
+            });
 
         return people;
     }
 
-    public Person GetPerson(string username)
+    public async Task<Person?> GetPersonAsync(string username)
     {
-        Trippin.Person? person = _container.People.AddQueryOption("$filter", $"{nameof(Trippin.Person.UserName)} eq '{username}'").First();
+        IDictionary<string, object>? oDataPerson = (await _client.FindEntriesAsync($"People('{username}')")).FirstOrDefault();
+
+        if (oDataPerson is null)
+            return null;
+
+        Enum.TryParse(oDataPerson[nameof(Person.Gender)] as string ?? Gender.Unknown.ToString(), true, out Gender gender);
+
+        Enum.TryParse(oDataPerson[nameof(Person.FavoriteFeature)] as string ?? Feature.None.ToString(), true, out Feature favFeature);
 
         return new Person()
         {
-            UserName = person.UserName,
-            FirstName = person.FirstName,
-            Gender = (Gender)person.Gender,
-            FavoriteFeature = (Feature)person.FavoriteFeature
+            UserName = oDataPerson[nameof(Person.UserName)] as string,
+            FirstName = oDataPerson[nameof(Person.FirstName)] as string,
+            MiddleName = oDataPerson[nameof(Person.MiddleName)] as string,
+            LastName = oDataPerson[nameof(Person.LastName)] as string,
+            Gender = gender,
+            Age = oDataPerson[nameof(Person.Age)] as long?,
+            FavoriteFeature = favFeature
         };
     }
 
-    public void UpdatePerson(Person person)
+    public Task UpdatePersonAsync(Person person)
     {
-        Trippin.Person? oDataPerson = _container.People.AddQueryOption("$filter", $"{nameof(Trippin.Person.UserName)} eq '{person.UserName}'").First();
+        Dictionary<string, object> data = new();
 
-        if (oDataPerson is null)
-            throw new InvalidOperationException($"Unable to find a person with {nameof(Trippin.Person.UserName)} '{person.UserName}'");
+        if (!string.IsNullOrWhiteSpace(person.FirstName))
+            data.Add(nameof(Person.FirstName), person.FirstName);
 
-        if (!string.IsNullOrWhiteSpace(person.FirstName) && oDataPerson.FirstName != person.FirstName)
-            oDataPerson.FirstName = person.FirstName;
+        if (person.Gender is not null)
+            data.Add(nameof(Person.Gender), person.Gender.ToString());
 
-        if (person.Gender is not null && oDataPerson.Gender != (Trippin.PersonGender)person.Gender)
-            oDataPerson.Gender = (Trippin.PersonGender)person.Gender;
+        if (person.FavoriteFeature is not null)
+            data.Add(nameof(Person.FavoriteFeature), person.FavoriteFeature.ToString());
 
-        if (person.FavoriteFeature is not null && oDataPerson.FavoriteFeature != (Trippin.Feature)person.FavoriteFeature)
-            oDataPerson.FavoriteFeature = (Trippin.Feature)person.FavoriteFeature;
-
-        _container.UpdateObject(oDataPerson);
-
-        _container.SaveChanges();
+        return _client.For<Person>().Key(person.UserName).Set(data).UpdateEntryAsync();
     }
 }

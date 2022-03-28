@@ -4,8 +4,8 @@ namespace Jibble.Assessment.Core.Common.Interfaces;
 
 public interface IPersonRepository
 {
-    IEnumerable<Person> GetPeople(string? firstName, Gender? gender, Feature? favFeature);
-    Person GetPerson(string username);
-    void CreatePerson(Person person);
-    void UpdatePerson(Person person);
+    Task<IEnumerable<Person>?> GetPeopleAsync(string? firstName, Gender? gender, Feature? favFeature);
+    Task<Person?> GetPersonAsync(string username);
+    Task CreatePersonAsync(Person person);
+    Task UpdatePersonAsync(Person person);
 }
